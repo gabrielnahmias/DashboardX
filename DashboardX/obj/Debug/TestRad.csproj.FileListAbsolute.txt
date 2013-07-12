@@ -1,0 +1,8 @@
+C:\Projects\TestRad\TestRad\bin\TestRad.dll
+C:\Projects\TestRad\TestRad\bin\TestRad.pdb
+C:\Projects\TestRad\TestRad\bin\Telerik.Web.UI.dll
+C:\Projects\TestRad\TestRad\bin\Telerik.Web.UI.Skins.dll
+C:\Projects\TestRad\TestRad\bin\Telerik.Web.UI.xml
+C:\Projects\TestRad\TestRad\obj\Debug\ResolveAssemblyReference.cache
+C:\Projects\TestRad\TestRad\obj\Debug\TestRad.dll
+C:\Projects\TestRad\TestRad\obj\Debug\TestRad.pdb

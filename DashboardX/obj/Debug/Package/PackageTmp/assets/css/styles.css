@@ -1,0 +1,291 @@
+﻿@import "../fonts/Calligraffitti/calligraffitti.css";
+@import "http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic";
+
+a {
+    color: #306B87;/*#FCD699*/
+    text-decoration: none;
+}
+
+a:hover {
+    color: #67ADCE;/*#FFE7C1;*/
+}
+
+body {
+    background: #B8DDED;
+    font: 12px "Open Sans", Arial, Helvetica, Sans-Serif;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+body,
+html,
+#main,
+#wrapper {
+    height: 96%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 10px 0;
+}
+
+header {
+    background: #1565AF;
+    border-bottom: 1px solid #06427A;
+    color: #FFFFFF;
+    font-size: 14px;
+    height: 21px;
+    left: 0;
+    padding: 5px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2000;
+}
+
+label {
+	display: inline-block;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+#content {
+    background: #FFFFFF;
+    height: 100%;
+    margin: 32px auto 10px;
+    /*padding: 0 10px;*/
+}
+
+#header_contents {
+}
+
+#logo {
+    margin-right: 5px;
+}
+
+#RadTabStrip1 {
+    background: #FFFFFF;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.title {
+    color: #FFFFFF;
+    display: inline-block;
+/*    font-family: Calligraffitti, "Open Sans", Arial, Helvetica, Sans-Serif;*/
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* LOG IN */
+
+#login_container {
+/*	width:355px;*/
+	float: right;
+	outline: none;
+}
+
+#login_container table td {
+    font-size: 12px;
+}
+
+/* THE DROPDOWN */
+
+.drop {
+    background: none repeat scroll 0 0 #F3F8FC;
+    border: 4px solid #D7E5EE;
+    border-radius: 0.3em 0 0.3em 0.3em;
+    box-shadow: 0 5px 4px 0 rgba(0, 0, 0, 0.4);
+    clear: both;
+    color: #333333;
+    display: none;
+    margin-top: 0;
+    padding: 10px;
+    position: absolute;
+    right: 15px;
+    top: 27px;
+    height: 140px;
+    width: 240px;
+    z-index: 1000;
+}
+
+/* LOG IN LINK */
+
+.loginlink {
+	color: #FFFFFF;
+	float: right;
+    margin: -3px 10px 0 0;
+    padding: 4px;
+	text-decoration:none;
+	border-radius: 5px;
+}
+    .loginlink:after {
+	    content: "▼";
+    }
+    .loginlink:hover {
+	    background: #b5ccde;
+	    color:#FFFFFF;
+    }
+    .loginlink:active, .loginlink:focus {
+        outline: none;
+    }
+
+/* LOGIN CLICKED STATE */
+
+.loginlink.clicked {
+	background: #d7e5ee;
+	border-radius: 5px 5px 0 0;
+	color:#256483;
+}
+    .loginlink.clicked:after {
+	    content: "▲";
+    }
+.loginlink.clicked:hover {
+	background: #d7e5ee;
+}
+
+/* LINKS */
+.login-links {
+    margin-top: 5px;
+}
+    .login-links a {
+        color: #4792D3;
+        display: block;
+    }
+    .login-links a:hover {
+        color: #87C2F2;
+    }
+
+/* SUBMIT */
+
+#login_container input[type="submit"] {
+    cursor: pointer;
+	display:block;
+	width: 100%;
+	float:right;
+	margin-top: 5px;
+	border:solid 1px #cb8604;
+	padding:10px;
+	background:#ffc800;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size:14px;
+	font-weight:bold;
+	color:#40361a;
+	text-decoration:none;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ffc800), to(#ffa800));
+	background: -moz-linear-gradient(top, #ffc800, #ffa800);
+ 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffc800', endColorstr='#ffa800');
+	border-radius: 5px;
+}
+    #login_container input[type="submit"]:hover {
+	    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+	    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+	    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+	    background: -webkit-gradient(linear, left top, left bottom, from(#ffc800), to(#e89900));
+	    background: -moz-linear-gradient(top, #ffc800, #e89900);
+ 	    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffc800', endColorstr='#e89900');
+    }
+    #login_container input[type="submit"]:active {
+	    background: #ffc800;
+    }
+
+/* INPUTS */
+
+#login_container input {
+	border: 1px solid #ccc;
+	padding: 5px;
+	background: #fff;
+	border-radius: 5px;
+	font-size: 14px;
+	color: #666;
+}
+    #login_container input:not([type="button"][type="reset"][type="submit"]):focus {
+	    border: 1px solid #ebc77e;
+	    background: #f8f3c7;
+        transition: background .2s ease-in;
+    }
+
+#login_container label {
+	color: #666;
+	margin: 0 5px 0 0;
+}
+
+/* CHECKBOXES AND THEIR LABELS */
+
+.remember {
+	float: left;
+	margin-top: 20px;
+}
+
+.checkbox {
+	margin: 0 5px 0 0;
+	padding: 0;
+	width: auto;
+	background: none;
+	border: none;
+}
+
+#login_container p {
+	font-size:12px;
+	color:#666;
+	clear:both;
+}
+    #login_container p a {
+	    color:#0784b3;
+	    font-weight:bold;
+	    text-decoration:none;
+    }
+        #login_container p a:hover {
+	        color:#127296;
+        }
+
+/* JQUERY UI */
+
+.ui-state-error, .ui-state-highlight {
+    font-size: 11px;
+    margin-bottom: 5px;
+    padding: 3px;
+}
+
+/* TOOLTIPS */
+
+.tooltip span {
+	display:none;
+	margin-left:8px;
+}
+.tooltip:hover span {
+	display:inline;
+	position:absolute;
+	background: url(../images/tip.gif) no-repeat left #333;
+	color:#fff;
+	padding:6px 8px 6px 20px;
+	font-size:12px;
+	opacity:0.8;
+	font-weight:bold;
+}
+
+/* RAD-RELATED */
+
+.RadGrid_MetroTouch,
+.RadGrid_MetroTouch .rgMasterTable,
+.RadGrid_MetroTouch .rgDetailTable,
+.RadGrid_MetroTouch .rgGroupPanel table,
+.RadGrid_MetroTouch .rgCommandRow table,
+.RadGrid_MetroTouch .rgEditForm table,
+.RadGrid_MetroTouch .rgPager table {
+    font-size: 12px;
+}
+
+.RadGrid_Windows7 th.rgSorted {
+    background-position: 0 -2613px !important;
+}
+
+.RadTabStrip .rtsImg {
+    padding-right: 10px !important;
+}
