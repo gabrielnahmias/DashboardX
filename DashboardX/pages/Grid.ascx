@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Grid.ascx.cs" Inherits="DashboardX.pages.Grid" %>
 
 <asp:SqlDataSource ID="SqlDataSource_Grid" runat="server" 
-    ConnectionString="<%$ ConnectionStrings:RCDASHConnectionString %>"
-    SelectCommand="select * from sampletable">
+    ConnectionString="<%$ ConnectionStrings:LocalConnectionString %>"
+    SelectCommand="select * from SampleData">
 </asp:SqlDataSource>
 
 <script type="text/javascript">
