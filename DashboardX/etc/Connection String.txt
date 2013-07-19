@@ -1,0 +1,1 @@
+Data Source=SWE9227-2;Initial Catalog=RCDASH;User ID=seift;Password=Burger2005

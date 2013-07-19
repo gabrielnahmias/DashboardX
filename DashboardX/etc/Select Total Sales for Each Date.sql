@@ -1,0 +1,1 @@
+select round(sum(cast(TransAmount as float)), 2) as TotalSales, SubmitDate from SampleTable group by SubmitDate
