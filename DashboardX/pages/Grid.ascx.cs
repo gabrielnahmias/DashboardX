@@ -14,13 +14,7 @@ namespace DashboardX.pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-        }
 
-        public void MainGrid_NeedData(object sender, EventArgs e)
-        {
-            DataSet ds = Excel.GetDataSetFromFile(Server.MapPath("etc/sampledata.xls"));
-            (sender as RadGrid).DataSource = ds;
         }
     }
 }
