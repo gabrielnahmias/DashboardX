@@ -31,9 +31,19 @@
 	<telerik:RadAjaxManager id="RadAjaxManager" runat="server">
 	</telerik:RadAjaxManager>
     <script type="text/javascript">
+        // TODO: Add popstate, etc.
+
         $(function () {
-            // Remove the HREF for all tabs (we are handling it with JavaScript).
-            $(".rtsLink").attr("href", "");
+            // Remove the HREF for all tabs (we are handling it with JavaScript)
+            // and make title element show the keyboard shortcut (cannot set with
+            // server-side tag).
+            $(".rtsLink").each(function(i, v) {
+                var $this = $(this);
+                $this.attr({
+                    href: "",
+                    title: "Shortcut: Alt(+Shift)+" + $this.attr("accesskey")
+                });
+            })
         });
         /*
         function SetTabOnLoad(sender, args) {
@@ -118,21 +128,18 @@
             </div>
         </header>
         <section id="content">
-            <telerik:RadTabStrip ID="RadTabStrip1" MultiPageID="RadMultiPage1" OnClientTabSelected="SelectTab" runat="server">
+            <telerik:RadTabStrip ID="RadTabStrip1" MultiPageID="RadMultiPage1" 
+            OnClientTabSelected="SelectTab" runat="server" SelectedIndex="0">
                 <Tabs>
-                    <telerik:RadTab Text="Grid" NavigateUrl="/Default.aspx?tab=0" ImageUrl="~/assets/img/icons/grid.png" SelectedImageUrl="~/assets/img/icons/grid_selected.png">
+                    <telerik:RadTab Text="<u>G</u>rid" NavigateUrl="/Default.aspx?tab=0" 
+                        AccessKey="G" ImageUrl="~/assets/img/icons/grid.png" 
+                        SelectedImageUrl="~/assets/img/icons/grid_selected.png" Selected="True">
                     </telerik:RadTab>
-                    <telerik:RadTab Text="Charts" NavigateUrl="/Default.aspx?tab=1" ImageUrl="~/assets/img/icons/charts.png" SelectedImageUrl="~/assets/img/icons/charts_selected.png">
-                        <Tabs>
-                            <telerik:RadTab Text="Bar">
-                            </telerik:RadTab>
-                            <telerik:RadTab Text="Pie">
-                            </telerik:RadTab>
-                        </Tabs>
+                    <telerik:RadTab Text="<u>C</u>harts" NavigateUrl="/Default.aspx?tab=1" AccessKey="C" ImageUrl="~/assets/img/icons/charts.png" SelectedImageUrl="~/assets/img/icons/charts_selected.png">
                     </telerik:RadTab>
                 </Tabs>
             </telerik:RadTabStrip>
-            <telerik:RadMultiPage ID="RadMultiPage1" runat="server">
+            <telerik:RadMultiPage ID="RadMultiPage1" runat="server" SelectedIndex="0">
                 <telerik:RadPageView ID="RadPageView1" runat="server">
                     <uc1:Grid runat="server" ID="Grid" />
                 </telerik:RadPageView>
