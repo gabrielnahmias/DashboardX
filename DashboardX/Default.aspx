@@ -63,6 +63,8 @@
                 tabStrip = tab.get_parent(),
                 multiPage = tabStrip.get_multiPage();
 
+            console.debug("Multipage:",multiPage);
+
             tabStrip.set_selectedIndex(iIndex);
             multiPage.set_selectedIndex(iIndex);
 
@@ -129,13 +131,15 @@
         </header>
         <section id="content">
             <telerik:RadTabStrip ID="RadTabStrip1" MultiPageID="RadMultiPage1" 
-            OnClientTabSelected="SelectTab" runat="server" SelectedIndex="0">
+             OnClientTabSelected="SelectTab" runat="server">
                 <Tabs>
                     <telerik:RadTab Text="<u>G</u>rid" NavigateUrl="/Default.aspx?tab=0" 
-                        AccessKey="G" ImageUrl="~/assets/img/icons/grid.png" 
-                        SelectedImageUrl="~/assets/img/icons/grid_selected.png" Selected="True">
+                     AccessKey="G" ImageUrl="~/assets/img/icons/grid_selected.png" 
+                     SelectedImageUrl="~/assets/img/icons/grid_selected.png">
                     </telerik:RadTab>
-                    <telerik:RadTab Text="<u>C</u>harts" NavigateUrl="/Default.aspx?tab=1" AccessKey="C" ImageUrl="~/assets/img/icons/charts.png" SelectedImageUrl="~/assets/img/icons/charts_selected.png">
+                    <telerik:RadTab Text="<u>C</u>harts" NavigateUrl="/Default.aspx?tab=1"
+                     AccessKey="C" ImageUrl="~/assets/img/icons/charts.png"
+                     SelectedImageUrl="~/assets/img/icons/charts_selected.png">
                     </telerik:RadTab>
                 </Tabs>
             </telerik:RadTabStrip>
