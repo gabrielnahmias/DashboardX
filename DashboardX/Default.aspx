@@ -134,7 +134,7 @@
              OnClientTabSelected="SelectTab" runat="server">
                 <Tabs>
                     <telerik:RadTab Text="<u>G</u>rid" NavigateUrl="/Default.aspx?tab=0" 
-                     AccessKey="G" ImageUrl="~/assets/img/icons/grid_selected.png" 
+                     AccessKey="G" ImageUrl="~/assets/img/icons/grid.png" 
                      SelectedImageUrl="~/assets/img/icons/grid_selected.png">
                     </telerik:RadTab>
                     <telerik:RadTab Text="<u>C</u>harts" NavigateUrl="/Default.aspx?tab=1"
