@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Charts.ascx.cs" Inherits="DashboardX.pages.Charts" %>
 
-<asp:SqlDataSource ID="SqlDataSource_Columns" runat="server" 
+<asp:SqlDataSource ID="SqlDataSource_Column" runat="server" 
     ConnectionString="<%$ ConnectionStrings:RCDASHConnectionString %>"
     SelectCommand="select SUM(TransAmount) as TotalSales, SubmitDate from RCDASH.dbo.SampleTable group by SubmitDate">
 </asp:SqlDataSource>
@@ -12,7 +12,7 @@
     (function() {
         var $d = $(document);
         $d.ready(function () {
-            var $back = $("#back"),
+            /*var $back = $("#back"),
                 $graphs = $(".graph"),
                 $links = $("#links"),
                 oLinksStyle = {
@@ -56,90 +56,121 @@
                         });
                     });
                 });
-            });
+            });*/
         });
-
-        /*setTimeout(function () {
-        ChartResize()
-        }, 500);
-
-        $(window).resize(function() {
-        ChartResize();
-        });
-
-        function ChartResize() {
-        var charts = {
-        "bar": $find("<%=RadHtmlChart1.ClientID%>"),
-        "pie": $find("<%=RadHtmlChart1.ClientID%>")
-        },
-        iPadding = 270,
-        iWinHeight = window.innerHeight,
-        iWinWidth = window.innerWidth;
-
-        if (iWinHeight <= 500)
-        iWinHeight = 500;
-        //if (iWinWidth <= 300)
-        //    iWinWidth = 500;
-
-        //console.debug(chart);
-        chart.set_height(iWinHeight - 140);
-        chart.set_width(iWinWidth - 30);
-        }*/
     })();
 </script>
 
-<a id="back" href="#">◄ Back</a>
+<!--<a id="back" href="#">◄ Back</a>-->
 
-<div id="links">
-    <a href="#">Columns</a>
+<!--<div id="links">
+    <a href="#">Column</a>
     <a href="#">Pie</a>
-</div>
+</div>-->
 
-<div id="columns" class="graph">
-    <telerik:RadHtmlChart ID="RadHtmlChart1" runat="server" DataSourceID="SqlDataSource_Columns">
-        <PlotArea>
-            <Series>
-                <telerik:ColumnSeries DataFieldY="TotalSales">
-                    <LabelsAppearance DataFormatString="${0}" Visible="false" />
-                    <TooltipsAppearance DataFormatString="${0}" />
-                </telerik:ColumnSeries>
-            </Series>
-            <XAxis DataLabelsField="SubmitDate" MajorTickType="None" MinorTickType="None">
-			    <MinorGridLines Visible="false" />
-			    <MajorGridLines Visible="false" />
-                <LabelsAppearance RotationAngle="-70" DataFormatString="{0}">
-                </LabelsAppearance>
-            </XAxis>
-            <YAxis>
-                <LabelsAppearance DataFormatString="${0}">
-                </LabelsAppearance>
-            </YAxis>
-        </PlotArea>
-        <Legend>
-            <Appearance Visible="false"></Appearance>
-        </Legend>
-    </telerik:RadHtmlChart>
-</div>
+<telerik:RadTabStrip CssClass="_rtsLevel2" ID="RadTabStrip2" MultiPageID="RadMultiPage2" 
+ OnClientTabSelected="SelectTab" runat="server" SelectedIndex="0">
+    <Tabs>
+        <telerik:RadTab Text="<u>C</u>olumn" NavigateUrl="/Default.aspx?tab=0" 
+            AccessKey="C" ImageUrl="~/assets/img/icons/grid.png" 
+            SelectedImageUrl="~/assets/img/icons/grid_selected.png" Selected="True">
+        </telerik:RadTab>
+        <telerik:RadTab Text="<u>P</u>ie" NavigateUrl="/Default.aspx?tab=1" AccessKey="P" ImageUrl="~/assets/img/icons/charts.png" SelectedImageUrl="~/assets/img/icons/charts_selected.png">
+        </telerik:RadTab>
+    </Tabs>
+</telerik:RadTabStrip>
+<telerik:RadMultiPage ID="RadMultiPage2" runat="server" SelectedIndex="0">
+    <telerik:RadPageView ID="RadPageView1" runat="server">
+        <div id="column" class="graph">
+            <telerik:RadHtmlChart ID="RadHtmlChart1" runat="server" DataSourceID="SqlDataSource_Column">
+                <PlotArea>
+                    <Series>
+                        <telerik:ColumnSeries DataFieldY="TotalSales">
+                            <LabelsAppearance DataFormatString="{0:C2}" Visible="false" />
+                            <TooltipsAppearance DataFormatString="{0:C2}" />
+                        </telerik:ColumnSeries>
+                    </Series>
+                    <XAxis DataLabelsField="SubmitDate" MajorTickType="None" MinorTickType="None">
+			            <MinorGridLines Visible="false" />
+			            <MajorGridLines Visible="false" />
+                        <LabelsAppearance RotationAngle="-70" DataFormatString="{0}">
+                        </LabelsAppearance>
+                    </XAxis>
+                    <YAxis>
+                        <LabelsAppearance DataFormatString="{0:C2}">
+                        </LabelsAppearance>
+                    </YAxis>
+                </PlotArea>
+                <Legend>
+                    <Appearance Visible="false"></Appearance>
+                </Legend>
+            </telerik:RadHtmlChart>
+        </div>
+    </telerik:RadPageView>
+    <telerik:RadPageView ID="RadPageView2" runat="server">
+        <script type="text/javascript">
+            var addEventListener = function (obj, evt, fnc) {
+                // W3C model
+                if (obj.addEventListener) {
+                    obj.addEventListener(evt, fnc, false);
+                    return true;
+                }
+                // Microsoft model
+                else if (obj.attachEvent) {
+                    return obj.attachEvent('on' + evt, fnc);
+                }
+                // Browser don't support W3C or MSFT model, go on with traditional
+                else {
+                    evt = 'on' + evt;
+                    if (typeof obj[evt] === 'function') {
+                        // Object already has a function on traditional
+                        // Let's wrap it with our own function inside another function
+                        fnc = (function (f1, f2) {
+                            return function () {
+                                f1.apply(this, arguments);
+                                f2.apply(this, arguments);
+                            }
+                        })(obj[evt], fnc);
+                    }
+                    obj[evt] = fnc;
+                    return true;
+                }
+                return false;
+            };
+            function boldText() {
+                $("#pie text").css("font-weight", "bold");
+            }
+            $(document).load(function () {
+                $("svg").bind("endEvent", {}, function () {
+                    alert('done');
+                });
+            });
+        </script>
+        <div id="pie" class="graph">
+            <telerik:RadHtmlChart ID="RadHtmlChart2" runat="server" Transitions="true" DataSourceID="SqlDataSource_Column">
+                <PlotArea>
+                    <Series>
+                        <telerik:PieSeries DataFieldY="TotalSales" StartAngle="90">
+                            <LabelsAppearance ClientTemplate="#=dataItem.SubmitDate#" Position="Circle" DataFormatString="{0:C2}">
+                            </LabelsAppearance>
+                            <TooltipsAppearance ClientTemplate="$#=dataItem.TotalSales#"  DataFormatString="{0:C2}" />
+                        </telerik:PieSeries>
+                    </Series>
+                    <XAxis DataLabelsField="SubmitDate" Visible="true">
+                    </XAxis>
+                    <YAxis>
+                        <LabelsAppearance DataFormatString="{0:C2}">
+                        </LabelsAppearance>
+                    </YAxis>
+                </PlotArea>
+                <Legend>
+                    <Appearance Visible="false"></Appearance>
+                </Legend>
+            </telerik:RadHtmlChart>
+        </div>
+    </telerik:RadPageView>
+</telerik:RadMultiPage>
 
-<div id="pie" class="graph">
-    <telerik:RadHtmlChart ID="RadHtmlChart2" runat="server" Transitions="true" DataSourceID="SqlDataSource_Columns">
-        <PlotArea>
-            <Series>
-                <telerik:PieSeries DataFieldY="TotalSales" StartAngle="90">
-                    <LabelsAppearance ClientTemplate="#=dataItem.SubmitDate#" Position="Circle" DataFormatString="${0}">
-                    </LabelsAppearance>
-                    <TooltipsAppearance ClientTemplate="$#=dataItem.TotalSales#"  DataFormatString="${0}" />
-                </telerik:PieSeries>
-            </Series>
-            <XAxis DataLabelsField="SubmitDate" Visible="true">
-            </XAxis>
-            <YAxis>
-                <LabelsAppearance DataFormatString="${0}">
-                </LabelsAppearance>
-            </YAxis>
-        </PlotArea>
-        <Legend>
-            <Appearance Visible="false"></Appearance>
-        </Legend>
-    </telerik:RadHtmlChart>
+<div id="graphs">
+
 </div>
