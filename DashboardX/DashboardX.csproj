@@ -143,17 +143,6 @@
     <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="RCDASHDataSet.xsc">
-      <DependentUpon>RCDASHDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="RCDASHDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>RCDASHDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="RCDASHDataSet.xss">
-      <DependentUpon>RCDASHDataSet.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -182,7 +171,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
