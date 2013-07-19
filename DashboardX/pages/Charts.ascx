@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Charts.ascx.cs" Inherits="DashboardX.pages.Charts" %>
 
 <asp:SqlDataSource ID="SqlDataSource_Column" runat="server" 
-    ConnectionString="<%$ ConnectionStrings:RCDASHConnectionString %>"
-    SelectCommand="select SUM(TransAmount) as TotalSales, SubmitDate from RCDASH.dbo.SampleTable group by SubmitDate">
+    ConnectionString="<%$ ConnectionStrings:LocalConnectionString %>"
+    SelectCommand="select SUM(TransAmount) as TotalSales, SubmitDate from dbx.dbo.SampleData group by SubmitDate">
 </asp:SqlDataSource>
 
 <%--select CAST(REPLACE(STR(SUM(TransAmount), max(LEN(convert(varchar, TransAmount)))+1, 2), SPACE(1), '0') AS varchar) as TotalSales, SubmitDate from RCDASH.dbo.SampleTable group by SubmitDate--%>
@@ -86,8 +86,8 @@
                 <PlotArea>
                     <Series>
                         <telerik:ColumnSeries DataFieldY="TotalSales">
-                            <LabelsAppearance DataFormatString="{0:C2}" Visible="false" />
-                            <TooltipsAppearance DataFormatString="{0:C2}" />
+                            <LabelsAppearance DataFormatString="{0:C}" Visible="false" />
+                            <TooltipsAppearance DataFormatString="{0:C}" />
                         </telerik:ColumnSeries>
                     </Series>
                     <XAxis DataLabelsField="SubmitDate" MajorTickType="None" MinorTickType="None">
@@ -97,7 +97,7 @@
                         </LabelsAppearance>
                     </XAxis>
                     <YAxis>
-                        <LabelsAppearance DataFormatString="{0:C2}">
+                        <LabelsAppearance DataFormatString="${0}">
                         </LabelsAppearance>
                     </YAxis>
                 </PlotArea>
@@ -151,15 +151,15 @@
                 <PlotArea>
                     <Series>
                         <telerik:PieSeries DataFieldY="TotalSales" StartAngle="90">
-                            <LabelsAppearance ClientTemplate="#=dataItem.SubmitDate#" Position="Circle" DataFormatString="{0:C2}">
+                            <LabelsAppearance ClientTemplate="#=dataItem.SubmitDate#" Position="Circle" DataFormatString="{0:C}">
                             </LabelsAppearance>
-                            <TooltipsAppearance ClientTemplate="$#=dataItem.TotalSales#"  DataFormatString="{0:C2}" />
+                            <TooltipsAppearance DataFormatString="{0:C}" />
                         </telerik:PieSeries>
                     </Series>
                     <XAxis DataLabelsField="SubmitDate" Visible="true">
                     </XAxis>
                     <YAxis>
-                        <LabelsAppearance DataFormatString="{0:C2}">
+                        <LabelsAppearance DataFormatString="{0:C}">
                         </LabelsAppearance>
                     </YAxis>
                 </PlotArea>
