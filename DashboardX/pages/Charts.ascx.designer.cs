@@ -13,6 +13,15 @@ namespace DashboardX.pages {
     public partial class Charts {
         
         /// <summary>
+        /// SqlDataSource_Columns control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource_Columns;
+        
+        /// <summary>
         /// RadHtmlChart1 control.
         /// </summary>
         /// <remarks>
@@ -20,5 +29,14 @@ namespace DashboardX.pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadHtmlChart RadHtmlChart1;
+        
+        /// <summary>
+        /// RadHtmlChart2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadHtmlChart RadHtmlChart2;
     }
 }
