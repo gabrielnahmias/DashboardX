@@ -66,6 +66,17 @@ label {
     margin: 32px auto 10px;
 }
 
+#graphs {
+    margin: auto;
+    width: 920px;
+}
+    #graphs > div {
+        float: left;
+    }
+    #graphs .left {
+        margin: 0 20px 0 0;
+    }
+
 #header_contents {
 }
 
@@ -127,10 +138,23 @@ label {
         background: #25A0DA !important;
     }
 
+.download-image {
+    background: #25A0DA;
+    display: none;
+    padding: 3px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
+
 .graph {
-    display: block;
+    display: inline-block;
     margin: auto;
-    width: 600px;
+    overflow-x: auto;
+    overflow-y: auto;
+    position: relative;
+    width: 450px;
 }
 
 .left {
@@ -298,6 +322,11 @@ label {
     opacity: 0.8;
     padding: 6px 8px 6px 20px;
     position: absolute;
+}
+
+[id*=Panel] {
+    float: left;
+    overflow: auto;
 }
 
 [id^="RadMultiPage"] {

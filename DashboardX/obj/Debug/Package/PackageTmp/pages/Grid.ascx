@@ -1,5 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Grid.ascx.cs" Inherits="DashboardX.pages.Grid" %>
 
+<asp:SqlDataSource ID="SqlDataSource_Grid" runat="server" 
+    ConnectionString="<%$ ConnectionStrings:LocalConnectionString %>"
+    SelectCommand="select * from SampleData">
+</asp:SqlDataSource>
+
 <script type="text/javascript">
     $(window).resize(function () {
         GridResize(JSON.parse(localStorage.getItem('e')));
@@ -15,7 +20,7 @@
                 return val;
             }),
             scrollArea = document.getElementById(e.ClientID + "_GridData"),
-            iPadding = 270,
+            iPadding = 250,
             iWinHeight = window.innerHeight;
 
         if (iWinHeight <= 500)
@@ -26,7 +31,7 @@
         localStorage.setItem('e', temp_e);
     }
 </script>
-<telerik:RadGrid id="MainGrid" runat="server" OnNeedDataSource="MainGrid_NeedData"
+<telerik:RadGrid BorderColor="White" id="MainGrid" runat="server" DataSourceID="SqlDataSource_Grid"
     AllowPaging="True" AllowSorting="True" PageSize="50">
     <ClientSettings>
         <Resizing AllowColumnResize="true" AllowRowResize="true" />

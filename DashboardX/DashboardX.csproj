@@ -64,6 +64,8 @@
     <Compile Include="Classes\AppInfo.cs" />
     <Compile Include="Classes\Globals.cs" />
     <Compile Include="Classes\Excel.cs" />
+    <Compile Include="Classes\HtmlChartExporter.cs" />
+    <Compile Include="Classes\HtmlChartExportSettings.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

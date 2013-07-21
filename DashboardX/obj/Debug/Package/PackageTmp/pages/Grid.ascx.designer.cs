@@ -13,6 +13,15 @@ namespace DashboardX.pages {
     public partial class Grid {
         
         /// <summary>
+        /// SqlDataSource_Grid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource_Grid;
+        
+        /// <summary>
         /// MainGrid control.
         /// </summary>
         /// <remarks>
