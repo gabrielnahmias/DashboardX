@@ -6,9 +6,6 @@
 </asp:SqlDataSource>
 
 <script type="text/javascript">
-    $(window).resize(function () {
-        GridResize(JSON.parse(localStorage.getItem('e')));
-    });
     function GridResize(e) {
         var seen = [],
             temp_e = JSON.stringify(e, function (key, val) {
@@ -20,7 +17,7 @@
                 return val;
             }),
             scrollArea = document.getElementById(e.ClientID + "_GridData"),
-            iPadding = 250,
+            iPadding = 260,
             iWinHeight = window.innerHeight;
 
         if (iWinHeight <= 500)
@@ -30,14 +27,36 @@
 
         localStorage.setItem('e', temp_e);
     }
+    $(window).resize(function () {
+        GridResize(JSON.parse(localStorage.getItem('e')));
+    });
 </script>
-<telerik:RadGrid BorderColor="White" id="MainGrid" runat="server" DataSourceID="SqlDataSource_Grid"
-    AllowPaging="True" AllowSorting="True" PageSize="50">
+
+<asp:HiddenField runat="server" ID="contentHolder" />
+
+<div id="toolbar">
+    <div id="download_file">
+        <asp:DropDownList ID="DropDownList1" runat="server">
+            <asp:ListItem Text="CSV" Value="csv" Selected="true"></asp:ListItem>
+	        <asp:ListItem Text="DOC" Value="doc"></asp:ListItem>
+            <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
+	        <asp:ListItem Text="XLS (HTML)" Value="xls"></asp:ListItem>
+	        <asp:ListItem Text="XLS (BIFF)" Value="xls2"></asp:ListItem>
+        </asp:DropDownList>
+        <asp:Button ID="Button1" runat="server" Text="Download File" OnClick="Export" />
+    </div>
+</div>
+
+<telerik:RadGrid BorderColor="White" id="RadGrid1" runat="server" DataSourceID="SqlDataSource_Grid"
+ AllowPaging="True" AllowSorting="True" PageSize="50">
     <ClientSettings>
         <Resizing AllowColumnResize="true" AllowRowResize="true" />
         <Scrolling AllowScroll="true" ScrollHeight="600px" UseStaticHeaders="true" />
         <ClientEvents OnGridCreated="GridResize" />
     </ClientSettings>
+    <ExportSettings FileName="grid"></ExportSettings>
     <MasterTableView EditMode="InPlace">
+        <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
+         ShowExportToCsvButton="true" ShowExportToPdfButton="true" />
     </MasterTableView>
 </telerik:RadGrid>
