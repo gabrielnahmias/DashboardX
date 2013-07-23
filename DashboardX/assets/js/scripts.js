@@ -51,32 +51,30 @@ $(function () {
 
     $(document).ready(function () {
         (function () {
-            var $header = $("header");
-            //settings
-            var fadeSpeed = 200,
+            var $header = $("header"),
+                fadeSpeed = 200,
                 fadeTo = 0.1,
                 topDistance = 10,
-                topbarME = function () {
+                showHeader = function () {
                     $header.fadeTo(fadeSpeed, 1);
-                }, topbarML = function () {
+                }, fadeHeader = function () {
                     $header.fadeTo(fadeSpeed, fadeTo);
                 },
                 inside = false;
-            //do
+
             $(window).scroll(function () {
-                console.debug('scrolling');
+                //console.debug('scrolling');
                 position = $(window).scrollTop();
                 if (position >= topDistance && !inside) {
-                    //add events
-                    topbarML();
-                    $header.bind('mouseenter', topbarME);
-                    $header.bind('mouseleave', topbarML);
+                    fadeHeader();
+                    $header.bind('mouseenter', showHeader);
+                    $header.bind('mouseleave', fadeHeader);
                     inside = true;
                 }
                 else if (position < topDistance) {
-                    topbarME();
-                    $header.unbind('mouseenter', topbarME);
-                    $header.unbind('mouseleave', topbarML);
+                    showHeader();
+                    $header.unbind('mouseenter', showHeader);
+                    $header.unbind('mouseleave', fadeHeader);
                     inside = false;
                 }
             });
