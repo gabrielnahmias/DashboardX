@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.UI;
 
 /// <summary>
-/// The settings needed for exporting the RadHtmlChart
+/// The settings needed for exporting the RadHtmlChart.
 /// </summary>
 public class HtmlChartExportSettings
 {
@@ -25,16 +25,15 @@ public class HtmlChartExportSettings
 	/// <summary>
 	/// The path to the Inkscape executable on the server.
 	/// </summary>
-    public const string InkscapePath = @"C:\Projects\Dashboard\DashboardX\etc\inkscape\InkscapePortable.exe";//the path to the Inkscape executable on your machine
+    public const string InkscapePath = @"C:\Projects\Dashboard\DashboardX\etc\inkscape\InkscapePortable.exe";
 
 	/// <summary>
 	/// A list with the appropriate content-type values for the file formats.
 	/// </summary>
-	public static readonly Dictionary<string, string> ContentTypeList = new Dictionary<string, string>
-		{
-			{"png", "image/png"},
-			{"pdf", "application/pdf"}
-		};
+	public static readonly Dictionary<string, string> ContentTypeList = new Dictionary<string, string> {
+        {"png", "image/png"},
+        {"pdf", "application/pdf"}
+    };
 
 	/// <summary>
 	/// The height of the exported file, usually the height of the chart.
