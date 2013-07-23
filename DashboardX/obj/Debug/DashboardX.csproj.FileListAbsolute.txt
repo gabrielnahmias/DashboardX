@@ -13,4 +13,3 @@ C:\Projects\Dashboard\DashboardX\bin\Telerik.Web.UI.Skins.dll
 C:\Projects\Dashboard\DashboardX\bin\Telerik.Web.UI.xml
 C:\Projects\Dashboard\DashboardX\obj\Debug\DashboardX.dll
 C:\Projects\Dashboard\DashboardX\obj\Debug\DashboardX.pdb
-C:\Projects\Dashboard\DashboardX\obj\Debug\DashboardX.csprojResolveAssemblyReference.cache

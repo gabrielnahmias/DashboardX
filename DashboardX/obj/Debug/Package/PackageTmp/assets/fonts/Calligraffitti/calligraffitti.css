@@ -1,8 +1,0 @@
-@font-face {
-    font-family: 'Calligraffitti';
-    src: url('calligraffitti.eot');
-    src: url('calligraffitti.eot') format('embedded-opentype'),
-         url('calligraffitti.woff') format('woff'),
-         url('calligraffitti.ttf') format('truetype'),
-         url('calligraffitti.svg#CalligraffittiRegular') format('svg');
-}
