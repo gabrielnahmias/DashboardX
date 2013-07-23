@@ -7,6 +7,13 @@
 <%@ Register Src="~/pages/Grid.ascx" TagPrefix="uc1" TagName="Grid" %>
 <%@ Register Src="~/pages/Charts.ascx" TagPrefix="uc1" TagName="Charts" %>
 
+<%--
+
+TODO:
+ - Add color column to database for ColorField attribute of pie chart (possibly others)!
+
+--%>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -45,18 +52,6 @@
                 });
             })
         });
-        /*
-        function SetTabOnLoad(sender, args) {
-            console.debug(sender.get_multiPage());
-            console.debug(sender, args); //iIndex, tabStrip, multiPage
-            var iIndex = parseInt(localStorage['tab']),
-                tabStrip = sender,
-                multiPage = tabStrip.get_multiPage();
-            
-            tabStrip.set_selectedIndex(iIndex);
-            multiPage.set_selectedIndex(iIndex);
-        };
-        */
         function SelectTab(sender, e) {
             var tab = e.get_tab(),
                 iIndex = tab.get_index(),
@@ -73,6 +68,9 @@
             console.debug(sender, e);
         }
     </script>
+    <div id="overlay">
+        <img src="<%=Globals.Dirs.Images%>/loading.gif" />
+    </div>
 	<div id="wrapper">
         <header>
             <img id="logo" alt="" class="left" src="<%=Globals.Dirs.Images%>/logo.png" />
