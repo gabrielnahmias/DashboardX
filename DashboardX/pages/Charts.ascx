@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Charts.ascx.cs" Inherits="DashboardX.pages.Charts" %>
 
-<asp:SqlDataSource ID="SqlDataSource_Column" runat="server" 
+<asp:SqlDataSource ID="SqlDataSource_TotalSales" runat="server" 
     ConnectionString="<%$ ConnectionStrings:LocalConnectionString %>"
     SelectCommand="select SUM(TransAmount) as TotalSales, SubmitDate from dbx.dbo.SampleData group by SubmitDate">
 </asp:SqlDataSource>
@@ -9,66 +9,45 @@
 
 <script type="text/javascript">
     function getSvgContent(sender, chart) {
-        //obtain an SVG version of the chart regardless of the browser
+        // Obtain an SVG version of the chart regardless of the browser.
         var chartRendering = $find("Charts_"+chart).getSVGString();
-        //store the SVG string in a hidden field and escape it so that the value can be posted to the server
+        
+        $("#overlay").fadeIn();
+
+        // Store the SVG string in a hidden field and escape it so that the value can be posted to the server.
         $get("<%=svgHolder.ClientID %>").value = escape(chartRendering);
-        //initiate the postback from the button so that its server-side handler is executed
+        // Initiate the postback from the button so that its server-side handler is executed.
         __doPostBack(sender.name, "");
+
+        setTimeout(function () {
+            $("#overlay").fadeOut();
+        }, 3000);
     }
     (function() {
         var $d = $(document);
         $d.ready(function () {
-            $(".graph").hover(function () {
-                $(this).find(".download-image").show();
-            }, function () {
-                $(this).find(".download-image").hide();
-            });
-            /*var $back = $("#back"),
-                $graphs = $(".graph"),
-                $links = $("#links"),
-                oLinksStyle = {
-                    left: "50%",
-                    marginLeft: "-170px",
-                    position: "absolute",
-                    top: "50%",
-                    width: "340px"
-                };
-
-            $(".graph").css("position", "absolute").hide();
-            $("#links").show();
-
-            $("#links a").click(function () {
+            // When you hover over a graph, show the download button/dropdown
+            // and unless the user hovers over that specific area, hide it
+            // within 3 seconds of being shown. Also, if the user's mouse leaves
+            // the graph, the download area hides immediately.
+            $(".graph").mouseenter(function () {
                 var $this = $(this),
-                    $chart = $("#" + $this.text().toLowerCase());   // Get chart from link text.
-                
-                console.debug("Showing " + $chart.selector);
-                
-                $("#links").animate({
-                    top: "+1000"
-                }, 1000, "swing", function () {
+                    $dl = $this.find(".download-image"),
+                    timeoutID = setTimeout(function() {
+                        $dl.hide();
+                    }, 3000);
+               $dl.show().data("timeoutID", timeoutID); 
+            }).mouseleave(function () {
+                $(this).find(".download-image").hide();
+            }).find(".download-image").mouseenter(function() {
+                //alert($(this).data("timeoutID"))
+                clearTimeout($(this).data("timeoutID"));
+            }).mouseleave(function() {
+                var timeoutID = setTimeout(function() {
                     $(this).hide();
-                });
-
-                $chart.show().animate({
-                    left: "50%",
-                    marginLeft: -$chart.width() / 2,
-                }, 2000, "easeOutElastic", function() {
-                    $("#back").slideDown().click(function() {
-                        $(".graph").not($chart).hide();
-                        $(this).slideUp();
-                        $chart.show().animate({
-                            left: "-1000",
-                            marginLeft: 0
-                        }, 2000, "swing", function() {
-                            $(this).hide().css("left", "0");
-                        });
-                        $("#links").show().animate(oLinksStyle, 1000, "easeOutSine", function() {
-                            $(this).css(oLinksStyle);
-                        });
-                    });
-                });
-            });*/
+                }, 3000);
+               $(this).data("timeoutID", timeoutID);
+            });
         });
     })();
 </script>
@@ -76,7 +55,7 @@
 <asp:HiddenField runat="server" ID="svgHolder" />
 
 <div id="graphs">
-    <asp:Panel ID="Panel1" runat="server" Height="450px" Width="450px" CssClass="left">
+    <asp:Panel ID="Panel1" runat="server" Height="405px" Width="450px" CssClass="left">
         <div id="column" class="graph">
             <div class="download-image">
                 <asp:DropDownList ID="DropDownList1" runat="server">
@@ -85,7 +64,7 @@
                 </asp:DropDownList>
                 <asp:Button ID="Button1" runat="server" Text="Download Image" OnClick="DownloadColumnChart" OnClientClick="getSvgContent(this, 'RadHtmlChart1'); return false;" />
             </div>
-            <telerik:RadHtmlChart ID="RadHtmlChart1" runat="server" DataSourceID="SqlDataSource_Column">
+            <telerik:RadHtmlChart ID="RadHtmlChart1" runat="server" DataSourceID="SqlDataSource_TotalSales">
                 <PlotArea>
                     <Series>
                         <telerik:ColumnSeries DataFieldY="TotalSales">
@@ -93,7 +72,7 @@
                             <TooltipsAppearance DataFormatString="{0:C}" />
                         </telerik:ColumnSeries>
                     </Series>
-                    <XAxis DataLabelsField="SubmitDate" MajorTickType="None" MinorTickType="None">
+                    <XAxis DataLabelsField="SubmitDate" MajorTickType="Outside" Step="1" MinorTickType="None">
                         <MinorGridLines Visible="false" />
                         <MajorGridLines Visible="false" />
                         <LabelsAppearance RotationAngle="-70" DataFormatString="{0}">
@@ -111,7 +90,7 @@
             </telerik:RadHtmlChart>
         </div>
     </asp:Panel>
-    <asp:Panel ID="Panel2" runat="server" Height="450px" Width="450px">
+    <asp:Panel ID="Panel2" runat="server" Height="405px" Width="450px">
         <div id="pie" class="graph">
             <div class="download-image">
                 <asp:DropDownList ID="DropDownList2" runat="server">
@@ -121,7 +100,7 @@
                 <asp:Button ID="Button2" runat="server" Text="Download Image" OnClick="DownloadPieChart" OnClientClick="getSvgContent(this, 'RadHtmlChart2'); return false;" />
             </div>
             <telerik:RadHtmlChart ID="RadHtmlChart2" runat="server"
-             Transitions="true" DataSourceID="SqlDataSource_Column">
+             Transitions="true" DataSourceID="SqlDataSource_TotalSales">
                 <PlotArea>
                     <Series>
                         <telerik:PieSeries DataFieldY="TotalSales" StartAngle="90">
@@ -135,6 +114,76 @@
                     </XAxis>
                     <YAxis>
                         <LabelsAppearance DataFormatString="{0:C}">
+                        </LabelsAppearance>
+                    </YAxis>
+                </PlotArea>
+                <Legend>
+                    <Appearance Visible="false">
+                    </Appearance>
+                </Legend>
+            </telerik:RadHtmlChart>
+        </div>
+    </asp:Panel>
+    <asp:Panel ID="Panel3" runat="server" Height="405px" Width="450px" CssClass="left">
+        <div id="bar" class="graph">
+            <div class="download-image">
+                <asp:DropDownList ID="DropDownList3" runat="server">
+                    <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
+	                <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
+                </asp:DropDownList>
+                <asp:Button ID="Button3" runat="server" Text="Download Image" OnClick="DownloadBarChart" OnClientClick="getSvgContent(this, 'RadHtmlChart3'); return false;" />
+            </div>
+            <telerik:RadHtmlChart ID="RadHtmlChart3" runat="server" DataSourceID="SqlDataSource_TotalSales">
+                <PlotArea>
+                    <Series>
+                        <telerik:BarSeries DataFieldY="TotalSales">
+                            <LabelsAppearance DataFormatString="{0:C}" Visible="false" />
+                            <TooltipsAppearance DataFormatString="{0:C}" />
+                        </telerik:BarSeries>
+                    </Series>
+                    <XAxis DataLabelsField="SubmitDate" MajorTickType="None" MinorTickType="None">
+                        <MinorGridLines Visible="false" />
+                        <MajorGridLines Visible="false" />
+                        <LabelsAppearance RotationAngle="0" DataFormatString="{0}">
+                        </LabelsAppearance>
+                    </XAxis>
+                    <YAxis>
+                        <LabelsAppearance DataFormatString="${0}">
+                        </LabelsAppearance>
+                    </YAxis>
+                </PlotArea>
+                <Legend>
+                    <Appearance Visible="false">
+                    </Appearance>
+                </Legend>
+            </telerik:RadHtmlChart>
+        </div>
+    </asp:Panel>
+    <asp:Panel ID="Panel4" runat="server" Height="405px" Width="450px">
+        <div id="line" class="graph">
+            <div class="download-image">
+                <asp:DropDownList ID="DropDownList4" runat="server">
+                    <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
+	                <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
+                </asp:DropDownList>
+                <asp:Button ID="Button4" runat="server" Text="Download Image" OnClick="DownloadLineChart" OnClientClick="getSvgContent(this, 'RadHtmlChart4'); return false;" />
+            </div>
+            <telerik:RadHtmlChart ID="RadHtmlChart4" runat="server" DataSourceID="SqlDataSource_TotalSales">
+                <PlotArea>
+                    <Series>
+                        <telerik:LineSeries DataFieldY="TotalSales">
+                            <LabelsAppearance DataFormatString="{0:C}" Visible="false" />
+                            <TooltipsAppearance DataFormatString="{0:C}" />
+                        </telerik:LineSeries>
+                    </Series>
+                    <XAxis DataLabelsField="SubmitDate" MajorTickType="Outside" MinorTickType="None">
+                        <MinorGridLines Visible="false" />
+                        <MajorGridLines Visible="false" />
+                        <LabelsAppearance RotationAngle="-70" DataFormatString="{0}">
+                        </LabelsAppearance>
+                    </XAxis>
+                    <YAxis>
+                        <LabelsAppearance DataFormatString="${0}">
                         </LabelsAppearance>
                     </YAxis>
                 </PlotArea>

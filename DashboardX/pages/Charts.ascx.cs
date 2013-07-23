@@ -34,6 +34,16 @@ namespace DashboardX.pages
             DownloadImage(sender, e, RadHtmlChart2, DropDownList2);
         }
 
+        public void DownloadBarChart(object sender, EventArgs e)
+        {
+            DownloadImage(sender, e, RadHtmlChart3, DropDownList3);
+        }
+
+        public void DownloadLineChart(object sender, EventArgs e)
+        {
+            DownloadImage(sender, e, RadHtmlChart4, DropDownList4);
+        }
+
         /// <summary>
         /// Downloads an image of the given RadHtmlChart (with the given dropdown
         /// providing the format specification [PNG/PDF]) by launching Inkscape and
@@ -65,10 +75,10 @@ namespace DashboardX.pages
             currentSettings.Extension = ddl.SelectedValue;
 
             //the output file Inkscape will use, hardcoded to use App_Data as a temporary folder
-            currentSettings.OutputFilePath = (@"C:\graph." + currentSettings.Extension);
+            currentSettings.OutputFilePath = (@"C:\chart." + currentSettings.Extension);
 
             //you can change the name of the file the user will receive here. Extension is automatically added
-            currentSettings.ClientFileName = "exportedChart";
+            currentSettings.ClientFileName = "chart";
 
             //the actual file is created
             HtmlChartExporter.ExportHtmlChart(currentSettings);
