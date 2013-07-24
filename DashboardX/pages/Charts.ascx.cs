@@ -13,6 +13,11 @@ namespace DashboardX.pages
 {
     public partial class Charts : System.Web.UI.UserControl
     {
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            //Response.Write("test");
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //RadHtmlChart1.Height = 400;
