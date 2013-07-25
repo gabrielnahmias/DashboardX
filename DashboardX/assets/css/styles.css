@@ -76,16 +76,22 @@ label {
     right: 0;
 }
 
-#graphs {
+#charts {
     margin: auto;
     width: 920px;
 }
-    #graphs > div {
+    #charts > div {
         float: left;
+        margin: 0 5px;
     }
-    #graphs .left {
+    /*
+    #charts .left {
         margin: 0 20px 0 0;
-    }
+    }*/
+
+#Grid_Button1 {
+    margin-left: 5px;
+}
 
 #header_contents {
 }
@@ -153,7 +159,7 @@ label {
 
 #toolbar {
     background: #25A0DA;
-    padding: 0px 3px 3px;
+    padding: 7px 10px 10px;
     position: relative;
     text-align: right;
 }
@@ -173,19 +179,91 @@ label {
         background: #25A0DA !important;
     }
 
+/* Button */
+
+.button {
+    background: none repeat scroll 0 0 #4E68C7;
+    border: 0 none;
+    border-radius: 0 0 0 0;
+    box-shadow: 1px 0 1px #203891,
+                0 1px 1px #3852B1,
+                2px 1px 1px #203891,
+                1px 2px 1px #3852B1,
+                3px 2px 1px #203891,
+                2px 3px 1px #3852B1,
+                4px 3px 1px #203891,
+                3px 4px 1px #3852B1,
+                5px 4px 1px #203891,
+                4px 5px 1px #3852B1,
+                6px 5px 1px #203891;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
+    font-weight: bold;
+    line-height: 1.4;
+    outline: 0 none;
+    padding: 3px 6px;
+    position: relative;
+    top: -5px;
+    white-space: nowrap;
+}
+    .button:hover {
+        background: none repeat scroll 0 0 #3D57B4;
+        color: white;
+    }
+    .button:active {
+        box-shadow: 1px 0 1px #203891,
+                    0 1px 1px #3852B1,
+                    2px 1px 1px #203891,
+                    1px 2px 1px #3852B1,
+                    3px 2px 1px #203891;
+        transform: translate(3px, 3px);
+    }
+    .button:after {
+        bottom: -5px;
+        content: "";
+        left: 0;
+        position: absolute;
+        right: -5px;
+        top: 0;
+    }
+    .button:active:after {
+        bottom: -2px;
+        left: -3px;
+        right: -2px;
+        top: -3px;
+    }
+    .button:not(.block) {
+        margin-left: 5px;
+    }
+    .button.small {
+        font-size: 11px;
+        font-weight: normal;
+        line-height: 1.4;
+        padding: 1px 2px;
+    }
+
+/* Sortable */
+
+ .column { width: 450px; height: 810px; float: left; }
+.ui-sortable-placeholder { background: #EEEEEE; border: 3px dotted #AAAAAA; border-radius: 50px; visibility: visible !important; height: 399px !important; }
+.ui-sortable-placeholder * { visibility: hidden; }
+
 .download-image {
     background: rgba(0, 0, 0, 0.3);
     display: none;
-    padding: 3px;
+    padding: 10px;
     position: absolute;
     right: 0;
     top: 0;
     z-index: 1;
 }
 
-.graph {
+.chart {
     display: inline-block;
     margin: auto;
+    float: left;
     /*overflow-x: auto;
     overflow-y: auto;*/
     overflow: hidden;
@@ -284,7 +362,7 @@ label {
         cursor: pointer;
         display: block;
         float: right;
-        font-family: Helvetica,Arial,sans-serif;
+        font-family: "Open Sans", Helvetica,Arial,sans-serif;
         font-size: 14px;
         font-weight: bold;
         margin-top: 5px;
@@ -361,7 +439,6 @@ label {
 }
 
 [id*=Panel] {
-    float: left;
     overflow: hidden;
 }
 
