@@ -22,8 +22,10 @@ TODO:
     <telerik:RadStyleSheetManager id="RadStyleSheetManager" runat="server" />
     <link href="<%=Globals.Dirs.CSS%>/styles.css" rel="stylesheet" type="text/css" />
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/redmond/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <script src="<%=Globals.Dirs.JS%>/modernizr.min.js" type="text/javascript"></script>
     <script src="<%=Globals.Dirs.JS%>/jquery-1.10.2.min.js" type="text/javascript"></script>
     <script src="<%=Globals.Dirs.JS%>/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
+    <script src="<%=Globals.Dirs.JS%>/sortable.min.js" type="text/javascript"></script>
     <script src="<%=Globals.Dirs.JS%>/jquery.easing.min.js" type="text/javascript"></script>
     <script src="<%=Globals.Dirs.JS%>/scripts.js" type="text/javascript"></script>
     <% if (IsMobile) { %><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /><% } %>
@@ -50,7 +52,9 @@ TODO:
                     href: "",
                     title: "Shortcut: Alt(+Shift)+" + $this.attr("accesskey")
                 });
-            })
+            });
+
+            $(".rtsLI").disableSelection();
         });
         function SelectTab(sender, e) {
             var tab = e.get_tab(),
