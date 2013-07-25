@@ -1,0 +1,1 @@
+select sum(TransAmount) as TotalSales, SubmitDate from SampleTable group by SubmitDate
