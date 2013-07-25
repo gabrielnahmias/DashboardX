@@ -2,7 +2,7 @@
 
 <asp:SqlDataSource ID="SqlDataSource_TotalSales" runat="server" 
     ConnectionString="<%$ ConnectionStrings:LocalConnectionString %>"
-    SelectCommand="select SUM(TransAmount) as TotalSales, SubmitDate from dbx.dbo.SampleData group by SubmitDate">
+    SelectCommand="select SUM(TransAmount) as TotalSales, Color, SubmitDate from dbx.dbo.SampleData group by Color, SubmitDate">
 </asp:SqlDataSource>
 
 <%--select CAST(REPLACE(STR(SUM(TransAmount), max(LEN(convert(varchar, TransAmount)))+1, 2), SPACE(1), '0') AS varchar) as TotalSales, SubmitDate from RCDASH.dbo.SampleTable group by SubmitDate--%>
@@ -26,11 +26,11 @@
     (function() {
         var $d = $(document);
         $d.ready(function () {
-            // When you hover over a graph, show the download button/dropdown
+            // When you hover over a chart, show the download button/dropdown
             // and unless the user hovers over that specific area, hide it
             // within 3 seconds of being shown. Also, if the user's mouse leaves
-            // the graph, the download area hides immediately.
-            $(".graph").mouseenter(function () {
+            // the chart, the download area hides immediately.
+            $(".chart").mouseenter(function () {
                 var $this = $(this),
                     $dl = $this.find(".download-image"),
                     timeoutID = setTimeout(function() {
@@ -48,21 +48,25 @@
                 }, 3000);
                $(this).data("timeoutID", timeoutID);
             });
+
+            //$("[id*=Panel]").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all");
+            
+            $("#charts").sortable();
         });
     })();
 </script>
 
 <asp:HiddenField runat="server" ID="svgHolder" />
 
-<div id="graphs">
-    <asp:Panel ID="Panel1" runat="server" Height="405px" Width="450px" CssClass="left">
-        <div id="column" class="graph">
+<div id="charts">
+    <asp:Panel ID="Panel1" runat="server" Height="405px" Width="450px">
+        <div id="column" class="chart">
             <div class="download-image">
                 <asp:DropDownList ID="DropDownList1" runat="server">
                     <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
 	                <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
                 </asp:DropDownList>
-                <asp:Button ID="Button1" runat="server" Text="Download Image" OnClick="DownloadColumnChart" OnClientClick="getSvgContent(this, 'RadHtmlChart1'); return false;" />
+                <asp:Button ID="Button1" runat="server" CssClass="small button" Text="Download Image" OnClick="DownloadColumnChart" OnClientClick="getSvgContent(this, 'RadHtmlChart1'); return false;" />
             </div>
             <telerik:RadHtmlChart ID="RadHtmlChart1" runat="server" DataSourceID="SqlDataSource_TotalSales">
                 <PlotArea>
@@ -91,19 +95,19 @@
         </div>
     </asp:Panel>
     <asp:Panel ID="Panel2" runat="server" Height="405px" Width="450px">
-        <div id="pie" class="graph">
+        <div id="pie" class="chart">
             <div class="download-image">
                 <asp:DropDownList ID="DropDownList2" runat="server">
                     <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
 	                <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
                 </asp:DropDownList>
-                <asp:Button ID="Button2" runat="server" Text="Download Image" OnClick="DownloadPieChart" OnClientClick="getSvgContent(this, 'RadHtmlChart2'); return false;" />
+                <asp:Button ID="Button2" runat="server" CssClass="small button" Text="Download Image" OnClick="DownloadPieChart" OnClientClick="getSvgContent(this, 'RadHtmlChart2'); return false;" />
             </div>
             <telerik:RadHtmlChart ID="RadHtmlChart2" runat="server"
-             Transitions="true" DataSourceID="SqlDataSource_TotalSales">
+                Transitions="true" DataSourceID="SqlDataSource_TotalSales">
                 <PlotArea>
                     <Series>
-                        <telerik:PieSeries DataFieldY="TotalSales" StartAngle="90">
+                        <telerik:PieSeries ColorField="Color" DataFieldY="TotalSales" StartAngle="90">
                             <LabelsAppearance ClientTemplate="#=dataItem.SubmitDate#" Position="Circle" 
                             DataFormatString="{0:C}">
                             </LabelsAppearance>
@@ -124,14 +128,14 @@
             </telerik:RadHtmlChart>
         </div>
     </asp:Panel>
-    <asp:Panel ID="Panel3" runat="server" Height="405px" Width="450px" CssClass="left">
-        <div id="bar" class="graph">
+    <asp:Panel ID="Panel3" runat="server" Height="405px" Width="450px">
+        <div id="bar" class="chart">
             <div class="download-image">
                 <asp:DropDownList ID="DropDownList3" runat="server">
                     <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
 	                <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
                 </asp:DropDownList>
-                <asp:Button ID="Button3" runat="server" Text="Download Image" OnClick="DownloadBarChart" OnClientClick="getSvgContent(this, 'RadHtmlChart3'); return false;" />
+                <asp:Button ID="Button3" runat="server" CssClass="small button" Text="Download Image" OnClick="DownloadBarChart" OnClientClick="getSvgContent(this, 'RadHtmlChart3'); return false;" />
             </div>
             <telerik:RadHtmlChart ID="RadHtmlChart3" runat="server" DataSourceID="SqlDataSource_TotalSales">
                 <PlotArea>
@@ -160,13 +164,13 @@
         </div>
     </asp:Panel>
     <asp:Panel ID="Panel4" runat="server" Height="405px" Width="450px">
-        <div id="line" class="graph">
+        <div id="line" class="chart">
             <div class="download-image">
                 <asp:DropDownList ID="DropDownList4" runat="server">
                     <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
 	                <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
                 </asp:DropDownList>
-                <asp:Button ID="Button4" runat="server" Text="Download Image" OnClick="DownloadLineChart" OnClientClick="getSvgContent(this, 'RadHtmlChart4'); return false;" />
+                <asp:Button ID="Button4" runat="server" CssClass="small button" Text="Download Image" OnClick="DownloadLineChart" OnClientClick="getSvgContent(this, 'RadHtmlChart4'); return false;" />
             </div>
             <telerik:RadHtmlChart ID="RadHtmlChart4" runat="server" DataSourceID="SqlDataSource_TotalSales">
                 <PlotArea>
