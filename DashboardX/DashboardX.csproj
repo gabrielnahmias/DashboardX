@@ -132,7 +132,9 @@
     <Content Include="assets\img\biglogo.png" />
     <Content Include="assets\img\logo.png" />
     <Content Include="assets\js\jquery-1.10.2.min.js" />
+    <Content Include="assets\js\jquery-ui-1.10.3.min.js" />
     <Content Include="assets\js\jquery.easing.min.js" />
+    <Content Include="assets\js\sortable.js" />
     <Content Include="assets\js\scripts.js" />
   </ItemGroup>
   <ItemGroup>
@@ -174,7 +176,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
