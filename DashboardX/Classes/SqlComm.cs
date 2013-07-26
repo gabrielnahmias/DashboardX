@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 
 public class SqlComm
 {
-    private object _result;
-    
-    private object Result
+    private List<object[]> _result;
+    public List<object[]> Result
     {
         get
         {
@@ -19,6 +19,16 @@ public class SqlComm
     /// The connection string to use for queries.
     /// </summary>
     public static string ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["LocalConnectionString"].ConnectionString;
+
+    private SqlConnection conn = new SqlConnection(ConnectionString);
+    private SqlDataAdapter da = new SqlDataAdapter();
+    public SqlConnection Connection
+    {
+        get
+        {
+            return conn;
+        }
+    }
 
     public SqlComm()
     {
@@ -35,12 +45,9 @@ public class SqlComm
     /// <param name="sql">SQL query to execute.</param>
     public void Execute(string sql)
     {
-        using (SqlConnection conn = new SqlConnection(ConnectionString))
-        {
-            SqlCommand cmd = new SqlCommand(sql, conn);
-            cmd.Connection.Open();
-            cmd.ExecuteNonQuery();
-        }
+        SqlCommand cmd = new SqlCommand(sql, conn);
+        cmd.Connection.Open();
+        cmd.ExecuteNonQuery();
     }
 
     /// <summary>
@@ -49,30 +56,35 @@ public class SqlComm
     /// <param name="sql">SQL query to execute.</param>
     public void getResult(string sql)
     {
-        using (SqlConnection conn = new SqlConnection(ConnectionString))
+        int i = 0;
+        DataTable ds = new DataTable();
+        List<object[]> result = new List<object[]>();
+
+        conn.Open();
+
+        da = new SqlDataAdapter(sql, conn);
+        da.Fill(ds);
+        
+        foreach (DataRow row in ds.Rows)
         {
-            conn.Open();
-            SqlCommand cmd = new SqlCommand(sql, conn);
-            object result = (object)cmd.ExecuteScalar();
-            _result = result;
+            result.Add(row.ItemArray);
         }
+
+        _result = result;
     }
 
     /// <summary>
     /// Retrieve an entire database table or part of it and stores the result in the Result field.
     /// </summary>
     /// <param name="sql">SQL query to execute.</param>
-    public void getDataTable(string sql)
+    /*public void getDataTable(string sql)
     {
-        using (SqlConnection conn = new SqlConnection(ConnectionString))
-        {
-            SqlCommand cmd = new SqlCommand(sql, conn);
-            cmd.Connection.Open();
-            DataTable TempTable = new DataTable();
-            TempTable.Load(cmd.ExecuteReader());
-            _result = TempTable;
-        }
-    }
+        SqlCommand cmd = new SqlCommand(sql, conn);
+        cmd.Connection.Open();
+        DataTable TempTable = new DataTable();
+        TempTable.Load(cmd.ExecuteReader());
+        _result = TempTable;
+    }*/
 
     /// <summary>
     /// You can use this in order to execute a stored procedure with 1 parameter.
@@ -84,15 +96,12 @@ public class SqlComm
     /// <param name="Param1">The parameter.</param>
     public void StoredProcedure(string StoredProcedure, string PrmName1, object Param1)
     {
-        using (SqlConnection conn = new SqlConnection(ConnectionString))
-        {
-            SqlCommand cmd = new SqlCommand(StoredProcedure, conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add(new SqlParameter(PrmName1, Param1.ToString()));
-            cmd.Connection.Open();
-            object obj = new object();
-            obj = cmd.ExecuteScalar();
-            _result = obj;
-        }
+        SqlCommand cmd = new SqlCommand(StoredProcedure, conn);
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.Add(new SqlParameter(PrmName1, Param1.ToString()));
+        cmd.Connection.Open();
+        object obj = new object();
+        obj = cmd.ExecuteScalar();
+        //_result = obj;
     }
 }
