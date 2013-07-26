@@ -62,11 +62,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AppInfo.cs" />
+    <Compile Include="Classes\Chart.cs" />
+    <Compile Include="Classes\SqlComm.cs" />
     <Compile Include="Classes\StaticColors.cs" />
     <Compile Include="Classes\Globals.cs" />
     <Compile Include="Classes\Excel.cs" />
     <Compile Include="Classes\HtmlChartExporter.cs" />
     <Compile Include="Classes\HtmlChartExportSettings.cs" />
+    <Compile Include="Classes\WebHelper.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -89,6 +92,13 @@
       <DependentUpon>Grid.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UpdateChartPosition.aspx.cs">
+      <DependentUpon>UpdateChartPosition.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UpdateChartPosition.aspx.designer.cs">
+      <DependentUpon>UpdateChartPosition.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\RadCaptcha\0.wav" />
@@ -145,6 +155,7 @@
     <Content Include="favicon.ico" />
     <Content Include="pages\Charts.ascx" />
     <Content Include="pages\Grid.ascx" />
+    <Content Include="UpdateChartPosition.aspx" />
     <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -176,7 +187,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
