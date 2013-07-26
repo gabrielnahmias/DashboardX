@@ -31,6 +31,7 @@ TODO:
 </head>
 <body>
     <form id="main" runat="server">
+    <telerik:RadFormDecorator ID="QsfFormDecorator" runat="server" DecoratedControls="Zone" EnableRoundedCorners="false" />
 	<telerik:RadScriptManager id="RadScriptManager" runat="server">
 		<Scripts>
 			<asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.Core.js" />
