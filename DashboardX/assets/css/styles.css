@@ -77,17 +77,32 @@ label {
 }
 
 #charts {
+    -moz-user-select: none;
     margin: auto;
     width: 920px;
 }
     #charts > div {
         float: left;
-        margin: 0 5px;
+        height: 405px;
+        line-height: 405px;
+        margin: 0 5px 5px;
+        width: 450px;
+    }
+    #charts .rdContent {
+        height: 421px !important;
+    }
+    #charts .sortable-placeholder {
+        height: 400px;
+        width: 445px;
     }
     /*
     #charts .left {
         margin: 0 20px 0 0;
     }*/
+
+#Charts_RadDockZoneHorizontal1 {
+    overflow: hidden !important;
+}
 
 #Grid_Button1 {
     margin-left: 5px;
@@ -146,12 +161,26 @@ label {
     z-index: 2001;
 }
     #overlay img {
+        margin: auto;
+        width: 66px;
+    }
+    #overlay #loading_container {
         left: 50%;
         margin-left: -33px;
         margin-top: -33px;
         position: absolute;
+        text-align: center;
         top: 50%;
     }
+    #overlay #message {
+        color: #FFFFFF;
+        font-size: 14px;
+        margin-top: 20px;
+    }
+
+#pie text {
+    font-size: 11px !important;
+}
 
 #RadTabStrip1 {
     background: none repeat scroll 0 0 #FFFFFF;
@@ -182,20 +211,18 @@ label {
 /* Button */
 
 .button {
-    background: none repeat scroll 0 0 #4E68C7;
+    background: #1A77C9;
     border: 0 none;
     border-radius: 0 0 0 0;
-    box-shadow: 1px 0 1px #203891,
-                0 1px 1px #3852B1,
-                2px 1px 1px #203891,
-                1px 2px 1px #3852B1,
-                3px 2px 1px #203891,
-                2px 3px 1px #3852B1,
-                4px 3px 1px #203891,
-                3px 4px 1px #3852B1,
-                5px 4px 1px #203891,
-                4px 5px 1px #3852B1,
-                6px 5px 1px #203891;
+    box-shadow: 1px 0 1px #104A7C,
+                0 1px 1px #1565AF,
+                2px 1px 1px #104A7C,
+                1px 2px 1px #1565AF,
+                3px 2px 1px #104A7C,
+                2px 3px 1px #1565AF,
+                4px 3px 1px #104A7C,
+                3px 4px 1px #1565AF,
+                5px 4px 1px #104A7C;
     color: white;
     cursor: pointer;
     display: inline-block;
@@ -205,19 +232,17 @@ label {
     outline: 0 none;
     padding: 3px 6px;
     position: relative;
-    top: -5px;
+    top: -3px;
     white-space: nowrap;
 }
     .button:hover {
-        background: none repeat scroll 0 0 #3D57B4;
+        background: #1365AD;
         color: white;
     }
     .button:active {
-        box-shadow: 1px 0 1px #203891,
-                    0 1px 1px #3852B1,
-                    2px 1px 1px #203891,
-                    1px 2px 1px #3852B1,
-                    3px 2px 1px #203891;
+        box-shadow: 1px 0 1px #104A7C,
+                    0 1px 1px #1565AF,
+                    2px 1px 1px #104A7C;
         transform: translate(3px, 3px);
     }
     .button:after {
@@ -253,6 +278,7 @@ label {
 .download-image {
     background: rgba(0, 0, 0, 0.3);
     display: none;
+    line-height: 20px;
     padding: 10px;
     position: absolute;
     right: 0;
@@ -263,7 +289,6 @@ label {
 .chart {
     display: inline-block;
     margin: auto;
-    float: left;
     /*overflow-x: auto;
     overflow-y: auto;*/
     overflow: hidden;
@@ -271,12 +296,34 @@ label {
     width: 450px;
 }
 
+.handle {
+    background: url('../img/icons/move.png');
+    bottom: 0;
+    color: #666666;
+    content: "≡";
+    height: 20px;
+    left: 0;
+    width: 20px;
+    opacity: 0.5;
+    position: absolute;
+    z-index: 1;
+}
+
 .left {
     float: left;
 }
 
+.RadDockZone {
+    border: none;
+}
+
 .right {
     float: right;
+}
+
+.sortable-placeholder {
+    background: rgba(0, 0, 0, 0.07);
+    border: 1px dashed #CCCCCC;
 }
 
 .title {
@@ -440,6 +487,7 @@ label {
 
 [id*=Panel] {
     overflow: hidden;
+    position: relative;
 }
 
 [id^="RadMultiPage"] {
