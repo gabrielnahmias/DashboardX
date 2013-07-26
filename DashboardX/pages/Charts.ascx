@@ -8,34 +8,9 @@
 <%--select CAST(REPLACE(STR(SUM(TransAmount), max(LEN(convert(varchar, TransAmount)))+1, 2), SPACE(1), '0') AS varchar) as TotalSales, SubmitDate from RCDASH.dbo.SampleTable group by SubmitDate--%>
 
 <script type="text/javascript">
-    /*Modernizr.load({
-        test: Modernizr.draganddrop,
-        yep: "<%=Globals.Dirs.JS%>/sortable.min.js",
-        nope: "<%=Globals.Dirs.JS%>/jquery-ui-sortable-1.10.3.min.js",
-        complete: function () {
-            $(function () {
-                $("#charts").sortable({
-                    handle: '.handle'
-                }).bind("sortupdate", function (e, ui) {
-                    var $chart = $(ui.item),
-                        sChart = $chart.find(".chart").attr("id"),
-                        iPlace = $chart.index() + 1;
-
-                    //console.debug("New position: " + iPlace);
-
-                    $.post("UpdateChartPosition.aspx", {
-                        change: "{Position:" + iPlace + ", Type:'" + sChart + "'}"
-                    }, function(data) {
-                        console.debug(data);
-                    });
-                });
-                //console.debug("logged");
-            });
-        }
-    });*/
     function getSvgContent(sender, chart) {
         // Obtain an SVG version of the chart regardless of the browser.
-        var chartRendering = $find("Charts_"+chart).getSVGString();
+        var chartRendering = $find(chart).getSVGString();
         
         $("#overlay").find("#message").html("Generating chart...").end().fadeIn();
 
@@ -45,8 +20,23 @@
         __doPostBack(sender.name, "");
 
         setTimeout(function () {
-            $("#overlay").find("#message").html("").end().fadeOut();
+            $("#overlay").fadeOut(400, function () {
+                $(this).find("#message").html("");
+            });
         }, 3000);
+    }
+    function PositionChanged(sender, e) {
+        //console.debug(sender, e);
+        var $dock = $(sender._element),
+            $chart = $dock.find(".chart"),
+            sChart = $chart.attr("id"),
+            iPlace = $dock.index() + 1;
+
+        $.post("UpdateChartPosition.aspx", {
+            change: "{Position:" + iPlace + ", Type:'" + sChart + "'}"
+        }, function (data) {
+            console.debug(data);
+        });
     }
     (function() {
         var $d = $(document);
@@ -64,7 +54,8 @@
                $dl.show().data("timeoutID", timeoutID); 
             }).mouseleave(function () {
                 $(this).find(".download-image").hide();
-            }).find(".download-image").mouseenter(function() {
+            }).find(".download-image").mouseenter(function(e) {
+                //console.debug(e);
                 //alert($(this).data("timeoutID"))
                 clearTimeout($(this).data("timeoutID"));
             }).mouseleave(function() {
@@ -76,17 +67,38 @@
 
             //$("[id*=Panel]").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all");
         });
+        $(function() {
+            $.ajax("LoadChartPositions.aspx", {
+                dataType: "json",
+                success: function(data) {
+                    //console.debug(data);
+                    for (chartType in data) {
+                        var $chart = $("#"+chartType),
+                            $dock = $chart.parents(".RadDock"),
+                            $removedDock = $dock.detach(),
+                            iPlace = data[chartType],
+                            $el = $("#charts .RadDock").eq(iPlace - 1);
+
+                        console.debug($el);
+
+                        if (iPlace == 4)
+                            $removedDock.insertAfter($el);
+                        else
+                            $removedDock.insertBefore($el);
+                    }
+                }
+            });
+        });
     })();
 </script>
 
 <asp:HiddenField runat="server" ID="svgHolder" />
 
 <div id="charts">
-    <telerik:RadFormDecorator ID="QsfFromDecorator" runat="server" DecoratedControls="All" EnableRoundedCorners="false" />
     <telerik:RadDockLayout runat="server" ID="RadDockLayout1">
-        <telerik:RadDockZone runat="server" ID="RadDockZoneHorizontal1" Orientation="Horizontal"
-        Height="810px" Width="900px">
-            <telerik:RadDock runat="server" ID="RadDock1" DockHandle="Grip" Title="" Text="" Height="405px" Width="450px">
+        <telerik:RadDockZone o runat="server" ID="RadDockZoneHorizontal1" Orientation="Horizontal"
+        Height="881px" Width="920px">
+            <telerik:RadDock OnClientDockPositionChanged="PositionChanged" runat="server" ID="RadDock1" DockHandle="Grip" Title="" Text="" Height="440px" Width="460px">
                 <ContentTemplate>
                     <div id="column" class="chart">
                         <div class="download-image">
@@ -96,7 +108,7 @@
                             </asp:DropDownList>
                             <asp:Button ID="Button1" runat="server" CssClass="small button" Text="Download Image" OnClick="DownloadColumnChart" OnClientClick="getSvgContent(this, 'RadHtmlChart1'); return false;" />
                         </div>
-                        <telerik:RadHtmlChart ID="RadHtmlChart1" runat="server" DataSourceID="SqlDataSource_TotalSales">
+                        <telerik:RadHtmlChart ClientIDMode="Static" ID="RadHtmlChart1" runat="server" DataSourceID="SqlDataSource_TotalSales">
                             <PlotArea>
                                 <Series>
                                     <telerik:ColumnSeries ColorField="Color" DataFieldY="TotalSales">
@@ -123,7 +135,7 @@
                     </div>
                 </ContentTemplate>
             </telerik:RadDock>
-            <telerik:RadDock runat="server" ID="RadDock2" DockHandle="Grip" Title="" Text="" Height="405px" Width="450px">
+            <telerik:RadDock OnClientDockPositionChanged="PositionChanged" runat="server" ID="RadDock2" DockHandle="Grip" Title="" Text="" Height="440px" Width="460px">
                 <ContentTemplate>
                     <div id="pie" class="chart">
                         <div class="download-image">
@@ -133,7 +145,7 @@
                             </asp:DropDownList>
                             <asp:Button ID="Button2" runat="server" CssClass="small button" Text="Download Image" OnClick="DownloadPieChart" OnClientClick="getSvgContent(this, 'RadHtmlChart2'); return false;" />
                         </div>
-                        <telerik:RadHtmlChart ID="RadHtmlChart2" runat="server"
+                        <telerik:RadHtmlChart ClientIDMode="Static" ID="RadHtmlChart2" runat="server"
                             Transitions="true" DataSourceID="SqlDataSource_TotalSales">
                             <PlotArea>
                                 <Series>
@@ -159,7 +171,7 @@
                     </div>
                 </ContentTemplate>
             </telerik:RadDock>
-            <telerik:RadDock runat="server" ID="RadDock3" DockHandle="Grip" Title="" Text="" Height="405px" Width="450px">
+            <telerik:RadDock OnClientDockPositionChanged="PositionChanged" runat="server" ID="RadDock3" DockHandle="Grip" Title="" Text="" Height="440px" Width="460px">
                 <ContentTemplate>
                     <div id="bar" class="chart">
                         <div class="download-image">
@@ -169,7 +181,7 @@
                             </asp:DropDownList>
                             <asp:Button ID="Button3" runat="server" CssClass="small button" Text="Download Image" OnClick="DownloadBarChart" OnClientClick="getSvgContent(this, 'RadHtmlChart3'); return false;" />
                         </div>
-                        <telerik:RadHtmlChart ID="RadHtmlChart3" runat="server" DataSourceID="SqlDataSource_TotalSales">
+                        <telerik:RadHtmlChart ClientIDMode="Static" ID="RadHtmlChart3" runat="server" DataSourceID="SqlDataSource_TotalSales">
                             <PlotArea>
                                 <Series>
                                     <telerik:BarSeries ColorField="Color" DataFieldY="TotalSales">
@@ -196,7 +208,7 @@
                     </div>
                 </ContentTemplate>
             </telerik:RadDock>
-            <telerik:RadDock runat="server" ID="RadDock4" DockHandle="Grip" Title="" Text="" Height="405px" Width="450px">
+            <telerik:RadDock OnClientDockPositionChanged="PositionChanged" runat="server" ID="RadDock4" DockHandle="Grip" Title="" Text="" Height="440px" Width="460px">
                 <ContentTemplate>
                     <div id="line" class="chart">
                         <div class="download-image">
@@ -206,7 +218,7 @@
                             </asp:DropDownList>
                             <asp:Button ID="Button4" runat="server" CssClass="small button" Text="Download Image" OnClick="DownloadLineChart" OnClientClick="getSvgContent(this, 'RadHtmlChart4'); return false;" />
                         </div>
-                        <telerik:RadHtmlChart ID="RadHtmlChart4" runat="server" DataSourceID="SqlDataSource_TotalSales">
+                        <telerik:RadHtmlChart ClientIDMode="Static" ID="RadHtmlChart4" runat="server" DataSourceID="SqlDataSource_TotalSales">
                             <PlotArea>
                                 <Series>
                                     <telerik:LineSeries ColorField="Color" DataFieldY="TotalSales">
