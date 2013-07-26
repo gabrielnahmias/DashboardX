@@ -54,7 +54,7 @@ $(function () {
             var $header = $("header"),
                 fadeSpeed = 200,
                 fadeTo = 0.1,
-                topDistance = 10,
+                topDistance = 30,
                 showHeader = function () {
                     $header.fadeTo(fadeSpeed, 1);
                 }, fadeHeader = function () {
