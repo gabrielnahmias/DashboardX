@@ -70,6 +70,13 @@
     <Compile Include="Classes\HtmlChartExporter.cs" />
     <Compile Include="Classes\HtmlChartExportSettings.cs" />
     <Compile Include="Classes\WebHelper.cs" />
+    <Compile Include="LoadChartPositions.aspx.cs">
+      <DependentUpon>LoadChartPositions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LoadChartPositions.aspx.designer.cs">
+      <DependentUpon>LoadChartPositions.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -153,6 +160,7 @@
     <None Include="App_Data\RadSpell\en-US.tdf" />
     <None Include="App_Data\RadSpell\fr-FR.tdf" />
     <Content Include="assets\js\sortable.min.js" />
+    <Content Include="LoadChartPositions.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="pages\Charts.ascx" />

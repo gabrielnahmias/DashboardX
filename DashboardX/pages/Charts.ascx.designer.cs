@@ -31,15 +31,6 @@ namespace DashboardX.pages {
         protected global::System.Web.UI.WebControls.HiddenField svgHolder;
         
         /// <summary>
-        /// QsfFromDecorator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadFormDecorator QsfFromDecorator;
-        
-        /// <summary>
         /// RadDockLayout1 control.
         /// </summary>
         /// <remarks>
