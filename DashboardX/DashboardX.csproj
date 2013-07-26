@@ -143,14 +143,16 @@
     <Content Include="assets\img\logo.png" />
     <Content Include="assets\js\jquery-1.10.2.min.js" />
     <Content Include="assets\js\jquery-ui-1.10.3.min.js" />
+    <Content Include="assets\js\jquery-ui-sortable-1.10.3.min.js" />
     <Content Include="assets\js\jquery.easing.min.js" />
-    <Content Include="assets\js\sortable.js" />
+    <Content Include="assets\js\modernizr.min.js" />
     <Content Include="assets\js\scripts.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Data\RadSpell\de-DE.tdf" />
     <None Include="App_Data\RadSpell\en-US.tdf" />
     <None Include="App_Data\RadSpell\fr-FR.tdf" />
+    <Content Include="assets\js\sortable.min.js" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="pages\Charts.ascx" />
