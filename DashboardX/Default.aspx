@@ -25,7 +25,6 @@ TODO:
     <script src="<%=Globals.Dirs.JS%>/modernizr.min.js" type="text/javascript"></script>
     <script src="<%=Globals.Dirs.JS%>/jquery-1.10.2.min.js" type="text/javascript"></script>
     <script src="<%=Globals.Dirs.JS%>/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
-    <script src="<%=Globals.Dirs.JS%>/sortable.min.js" type="text/javascript"></script>
     <script src="<%=Globals.Dirs.JS%>/jquery.easing.min.js" type="text/javascript"></script>
     <script src="<%=Globals.Dirs.JS%>/scripts.js" type="text/javascript"></script>
     <% if (IsMobile) { %><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /><% } %>
@@ -73,7 +72,10 @@ TODO:
         }
     </script>
     <div id="overlay">
-        <img src="<%=Globals.Dirs.Images%>/loading.gif" />
+        <div id="loading_container">
+            <img src="<%=Globals.Dirs.Images%>/loading.gif" />
+            <div id="message"></div>
+        </div>
     </div>
 	<div id="wrapper">
         <header>
