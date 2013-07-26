@@ -331,6 +331,7 @@ select {
 .rdPlaceHolder {
     background: rgba(0, 0, 0, 0.07);
     border-radius: 50px;
+    transform: scale(.95);
 }
 
 .right {
@@ -511,7 +512,13 @@ select {
     position: relative;
 }
 
-.RadGrid_MetroTouch, .RadGrid_MetroTouch .rgMasterTable, .RadGrid_MetroTouch .rgDetailTable, .RadGrid_MetroTouch .rgGroupPanel table, .RadGrid_MetroTouch .rgCommandRow table, .RadGrid_MetroTouch .rgEditForm table, .RadGrid_MetroTouch .rgPager table {
+.RadGrid_MetroTouch,
+.RadGrid_MetroTouch .rgMasterTable,
+.RadGrid_MetroTouch .rgDetailTable,
+.RadGrid_MetroTouch .rgGroupPanel table,
+.RadGrid_MetroTouch .rgCommandRow table,
+.RadGrid_MetroTouch .rgEditForm table,
+.RadGrid_MetroTouch .rgPager table {
     font-size: 12px;
 }
 
@@ -521,4 +528,8 @@ select {
 
 .RadTabStrip .rtsImg {
     padding-right: 10px !important;
+}
+
+.RadTabStrip * {
+    font-family: "Segoe UI",Arial,Helvetica,sans-serif !important;
 }
