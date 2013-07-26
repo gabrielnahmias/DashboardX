@@ -17,7 +17,7 @@
                 return val;
             }),
             scrollArea = document.getElementById(e.ClientID + "_GridData"),
-            iPadding = 260,
+            iPadding = 280,
             iWinHeight = window.innerHeight;
 
         if (iWinHeight <= 500)
