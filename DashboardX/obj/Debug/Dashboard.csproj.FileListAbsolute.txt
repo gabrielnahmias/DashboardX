@@ -1,8 +1,0 @@
-C:\Projects\Dashboard\Dashboard\bin\Telerik.Web.UI.dll
-C:\Projects\Dashboard\Dashboard\bin\Telerik.Web.UI.Skins.dll
-C:\Projects\Dashboard\Dashboard\bin\Telerik.Web.UI.xml
-C:\Projects\Dashboard\Dashboard\obj\Debug\ResolveAssemblyReference.cache
-C:\Projects\Dashboard\Dashboard\bin\DashboardX.dll
-C:\Projects\Dashboard\Dashboard\bin\DashboardX.pdb
-C:\Projects\Dashboard\Dashboard\obj\Debug\DashboardX.dll
-C:\Projects\Dashboard\Dashboard\obj\Debug\DashboardX.pdb
