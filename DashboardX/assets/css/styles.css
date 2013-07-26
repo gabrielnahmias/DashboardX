@@ -1,6 +1,10 @@
 ﻿@import "../fonts/Calligraffitti/calligraffitti.css";
 @import "http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic";
 
+* {
+    font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
+}
+
 a {
     color: #306B87;
     text-decoration: none;
@@ -48,6 +52,12 @@ label {
     font-weight: bold;
 }
 
+select {
+    border: 1px solid #CCCCCC;
+    font: 12px "Open Sans",Arial,Helvetica,Sans-Serif;
+    padding: 3px;
+}
+
 #back {
     background: none repeat scroll 0 0 #25A0DA;
     color: #FFFFFF;
@@ -90,6 +100,7 @@ label {
     }
     #charts .rdContent {
         height: 421px !important;
+        width: 450px !important;
     }
     #charts .sortable-placeholder {
         height: 400px;
@@ -315,6 +326,11 @@ label {
 
 .RadDockZone {
     border: none;
+}
+
+.rdPlaceHolder {
+    background: rgba(0, 0, 0, 0.07);
+    border-radius: 50px;
 }
 
 .right {
