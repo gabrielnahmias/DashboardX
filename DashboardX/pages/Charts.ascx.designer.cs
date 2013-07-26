@@ -31,13 +31,40 @@ namespace DashboardX.pages {
         protected global::System.Web.UI.WebControls.HiddenField svgHolder;
         
         /// <summary>
-        /// Panel1 control.
+        /// QsfFromDecorator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
+        protected global::Telerik.Web.UI.RadFormDecorator QsfFromDecorator;
+        
+        /// <summary>
+        /// RadDockLayout1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDockLayout RadDockLayout1;
+        
+        /// <summary>
+        /// RadDockZoneHorizontal1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDockZone RadDockZoneHorizontal1;
+        
+        /// <summary>
+        /// RadDock1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadDock RadDock1;
         
         /// <summary>
         /// DropDownList1 control.
@@ -67,13 +94,13 @@ namespace DashboardX.pages {
         protected global::Telerik.Web.UI.RadHtmlChart RadHtmlChart1;
         
         /// <summary>
-        /// Panel2 control.
+        /// RadDock2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel2;
+        protected global::Telerik.Web.UI.RadDock RadDock2;
         
         /// <summary>
         /// DropDownList2 control.
@@ -103,13 +130,13 @@ namespace DashboardX.pages {
         protected global::Telerik.Web.UI.RadHtmlChart RadHtmlChart2;
         
         /// <summary>
-        /// Panel3 control.
+        /// RadDock3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel3;
+        protected global::Telerik.Web.UI.RadDock RadDock3;
         
         /// <summary>
         /// DropDownList3 control.
@@ -139,13 +166,13 @@ namespace DashboardX.pages {
         protected global::Telerik.Web.UI.RadHtmlChart RadHtmlChart3;
         
         /// <summary>
-        /// Panel4 control.
+        /// RadDock4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel4;
+        protected global::Telerik.Web.UI.RadDock RadDock4;
         
         /// <summary>
         /// DropDownList4 control.
