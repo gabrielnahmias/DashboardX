@@ -1,3 +1,15 @@
+var DBX = {
+    Events: {},
+    Utils: {}
+};
+
+DBX.Utils.getParameterByName = function(name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 $(function () {
 
     // -------------------- Log In --------------------
@@ -17,7 +29,7 @@ $(function () {
 
     // If the form was submitted and there's an error, reopen
     // the dropdown as soon as the page loads.
-    if (getParameterByName("UserName") != null && bError) {
+    if (DBX.Utils.getParameterByName("UserName") != null && bError) {
         $link.addClass("clicked");
         $drop.show();
     }
@@ -82,10 +94,3 @@ $(function () {
     });
 
 });
-
-function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
