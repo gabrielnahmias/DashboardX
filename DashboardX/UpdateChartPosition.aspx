@@ -1,1 +1,0 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UpdateChartPosition.aspx.cs" Inherits="DashboardX.UpdateChartPosition" %>
