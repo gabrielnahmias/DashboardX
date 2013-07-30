@@ -21,8 +21,8 @@ namespace DashboardX
         protected void Page_Load(object sender, EventArgs e)
         {
             int i = 1;
-            
-            string sql = "select * from dbx.dbo.ChartPositions";
+
+            string sql = "select Type, Position from dbx.dbo.ChartPositions group by Position, Type";
 
             SqlComm conn = new SqlComm();
 
