@@ -47,16 +47,20 @@
     </div>
 </div>
 
-<telerik:RadGrid BorderColor="White" id="RadGrid1" runat="server" DataSourceID="SqlDataSource_Grid"
- AllowPaging="True" AllowSorting="True" PageSize="50">
-    <ClientSettings>
-        <Resizing AllowColumnResize="true" AllowRowResize="true" />
-        <Scrolling AllowScroll="true" ScrollHeight="600px" UseStaticHeaders="true" />
-        <ClientEvents OnGridCreated="GridResize" />
-    </ClientSettings>
-    <ExportSettings FileName="grid"></ExportSettings>
-    <MasterTableView EditMode="InPlace">
-        <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
-         ShowExportToCsvButton="true" ShowExportToPdfButton="true" />
-    </MasterTableView>
-</telerik:RadGrid>
+<telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
+    <telerik:RadAjaxPanel EnableAJAX="true" runat="server">
+        <telerik:RadGrid BorderColor="White" id="RadGrid1" runat="server" DataSourceID="SqlDataSource_Grid"
+         AllowPaging="True" AllowSorting="True" PageSize="50">
+            <ClientSettings>
+                <Resizing AllowColumnResize="true" AllowRowResize="true" />
+                <Scrolling AllowScroll="true" ScrollHeight="600px" UseStaticHeaders="true" />
+                <ClientEvents OnGridCreated="GridResize" />
+            </ClientSettings>
+            <ExportSettings FileName="grid"></ExportSettings>
+            <MasterTableView EditMode="InPlace">
+                <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
+                 ShowExportToCsvButton="true" ShowExportToPdfButton="true" />
+            </MasterTableView>
+        </telerik:RadGrid>
+    </telerik:RadAjaxPanel>
+</telerik:RadCodeBlock>

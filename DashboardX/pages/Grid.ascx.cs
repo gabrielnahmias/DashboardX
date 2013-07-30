@@ -44,5 +44,16 @@ namespace DashboardX.pages
                 RadGrid1.MasterTableView.ExportToExcel();
             }
         }
+
+        protected void RadGrid1_PreRender(object sender, EventArgs e)
+        {
+            foreach (GridColumn col in RadGrid1.MasterTableView.RenderColumns)
+            {
+                foreach (GridHeaderItem header in RadGrid1.MasterTableView.GetItems(GridItemType.Header))
+                {
+                    header[col.UniqueName].Attributes.Add("OnClick", "return SortColumn('" + col.UniqueName + "');");
+                }
+            }
+        } 
     }
 }
