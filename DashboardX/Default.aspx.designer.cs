@@ -57,6 +57,15 @@ public partial class Default {
     protected global::Telerik.Web.UI.RadAjaxManager RadAjaxManager;
     
     /// <summary>
+    /// RadWindowManager control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::Telerik.Web.UI.RadWindowManager RadWindowManager;
+    
+    /// <summary>
     /// Login control.
     /// </summary>
     /// <remarks>
