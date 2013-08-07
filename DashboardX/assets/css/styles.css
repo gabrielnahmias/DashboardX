@@ -170,6 +170,11 @@ select {
 #header_contents {
 }
 
+#info {
+    float: left;
+    text-align: center;
+}
+
 #links {
     display: none;
     left: 50%;
@@ -372,6 +377,10 @@ select {
     right: 0;
     top: 0;
     z-index: 1;
+}
+
+.center {
+    text-align: center;
 }
 
 .chart {
