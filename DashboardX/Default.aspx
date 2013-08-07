@@ -1,16 +1,27 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="~/Default.aspx.cs" Inherits="Default" %>
 
 <%@ Import Namespace="DashboardX" %>
+<%@ Import Namespace="System.Data" %>
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 
 <%@ Register Src="~/pages/Grid.ascx" TagPrefix="uc1" TagName="Grid" %>
 <%@ Register Src="~/pages/Charts.ascx" TagPrefix="uc1" TagName="Charts" %>
 
+<asp:SqlDataSource ID="SqlDataSource_Stores" runat="server"
+    ConnectionString="<%$ ConnectionStrings:LocalConnectionString %>"
+    DataSourceMode="DataSet"
+    SelectCommand="select distinct DBAName from dbx.dbo.SampleData">
+</asp:SqlDataSource>
+
 <%--
 
 TODO:
- - 
+ - Use Sessions and such to make storing the selected store and other related data easier.
+ - Persist the current tab with sessions or the popstate functionality.
+ - Use parameters instead of String.Format() for SQL queries.
+ - Use LocationID in conjunction with DBAName to make a less error prone system.
+ - Maybe even concoct a way to retreieve data from a master set using a class (getStore(), getID(), etc.).
 
 --%>
 
@@ -105,7 +116,7 @@ TODO:
                     });
                 });
 
-                //DBX.Utils.disableSelection($(".rtsLI")[0]);
+                $(".rtsLI").disableSelection();
             });
         </script>
         <div id="overlay">
@@ -121,15 +132,31 @@ TODO:
                     <div class="title"><%=AppInfo.Title%></div>
                 </div>
                 <div id="tools">
-                    <div id="store" data-dropdown="#dd_store"></div>
-                    <div id="controls" data-dropdown="#dd_controls"></div>
+                    <div id="store" title="Select store" data-dropdown="#dd_store"></div>
+                    <div id="controls" title="Controls" data-dropdown="#dd_controls"></div>
                     <section id="dd_container">
                         <div id="dd_store" class="dropdown dropdown-scroll dropdown-tip">
                             <ul class="dropdown-menu">
+                                <li class="dropdown-menu-title">Select Store</li>
                                 <%
-                                    foreach (var s in Request.ServerVariables)
-                                        Response.Write(String.Format("<li><a href=\"#\">{0}</a></li>", s));
+                                    DataView dv = (DataView)SqlDataSource_Stores.Select(DataSourceSelectArguments.Empty);
+                                    HttpContext c = HttpContext.Current;
+                                    
+                                    for (int i = 0; i < dv.Table.Rows.Count; i++)
+                                    {
+                                        object[] row = dv.Table.Rows[i].ItemArray;
+                                        
+                                        foreach (object item in row)
+                                        {
+                                            string sStore = item.ToString();
+                                            bool bSelected = (c.Request["store"] != null && sStore.Equals(c.Request["store"]));
+
+                                            Response.Write(String.Format("<li{0}><a href=\"?store={1}\"{2}>{3}</a></li>", (bSelected ? " class=\"checked\" title=\"Currently selected store\"" : ""), HttpUtility.UrlEncode(sStore), (bSelected ? " onclick=\"return false;\"" : ""), sStore));
+                                        }
+                                    }
                                 %>
+                                <li class="dropdown-divider"></li>
+                                <li class="center"><a href="Default.aspx">All</a></li>
                             </ul>
                         </div>
                         <div id="dd_controls" class="dropdown dropdown-tip">
@@ -140,6 +167,12 @@ TODO:
                             </ul>
                         </div>
                     </section>
+                </div>
+                <div id="info">
+                    <% if (c.Request["store"] != null)
+                       { %>
+                    <strong>Store:</strong> <span><%=c.Request["store"]%></span>
+                    <% } %>
                 </div>
                 <div id="login_container">
                     <a class="loginlink" href="#">Log In </a>
