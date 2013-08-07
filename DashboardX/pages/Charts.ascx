@@ -21,8 +21,8 @@
             oPositions = {},
             sPositions = "";
 
+        // Go through each dock and account for its position.
         $("#charts .RadDockZone").find(".RadDock:not(.rdPlaceHolder)").each(function (i, v) {
-            //console.debug()
             var $this = $(this),
                 sType = $this.find(".chart").attr("id");
 
@@ -100,7 +100,7 @@
             $.ajax("LoadChartPositions.aspx", {
                 dataType: "json",
                 success: function (data) {
-                    //console.debug(data);
+                    //console.debug("Data:",data);
                     $("#overlay").fadeOut(400, function () {
                         $(this).find("#message").html("");
                     });
