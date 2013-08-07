@@ -19,7 +19,7 @@
 TODO:
  - Use Sessions and such to make storing the selected store and other related data easier.
  - Persist the current tab with sessions or the popstate functionality.
- - Use parameters instead of String.Format() for SQL queries.
+ - Use parameters instead of String.Format() for SQL queries and also consolidate SQL into a one liner instead of conditional (ternary).
  - Use LocationID in conjunction with DBAName to make a less error prone system.
  - Maybe even concoct a way to retreieve data from a master set using a class (getStore(), getID(), etc.).
 
