@@ -194,6 +194,7 @@
     <Content Include="assets\js\dropdown\icons\scissors.png" />
     <Content Include="assets\js\dropdown\jquery.dropdown.css" />
     <Content Include="assets\js\dropdown\jquery.dropdown.js" />
+    <Content Include="assets\js\dropdown\jquery.dropdown.min.js" />
     <Content Include="assets\js\jquery-1.10.2.min.js" />
     <Content Include="assets\js\jquery-ui-1.10.3.min.js" />
     <Content Include="assets\js\jquery-ui-sortable-1.10.3.min.js" />

@@ -12,6 +12,15 @@
 public partial class Default {
     
     /// <summary>
+    /// SqlDataSource_Stores control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource_Stores;
+    
+    /// <summary>
     /// RadStyleSheetManager control.
     /// </summary>
     /// <remarks>
