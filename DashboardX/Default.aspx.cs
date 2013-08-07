@@ -22,6 +22,7 @@ public partial class Default : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         DataBind();
+
         int iTab = 0;
         if (Request.QueryString["tab"] != null)
             iTab = int.Parse(Request.QueryString["tab"]);
