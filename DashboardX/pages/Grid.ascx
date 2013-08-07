@@ -2,7 +2,7 @@
 
 <asp:SqlDataSource ID="SqlDataSource_Grid" runat="server" 
     ConnectionString="<%$ ConnectionStrings:LocalConnectionString %>"
-    SelectCommand="select * from SampleData">
+    SelectCommand="select [LocationID], [ExternalMerchantNumber], [DBAName], [CurrencyCode], [Description], [SubmitDate], [TransCount], [TransAmount], [InterchangeExpense], [Rate] from [dbx].[dbo].[SampleData]">
 </asp:SqlDataSource>
 
 <script type="text/javascript">
@@ -14,7 +14,7 @@
                         return;
                     seen.push(val);
                 }
-                return val;
+                return val;     
             }),
             scrollArea = document.getElementById(e.ClientID + "_GridData"),
             iPadding = 280,
@@ -28,7 +28,14 @@
         localStorage.setItem('e', temp_e);
     }
     $(window).resize(function () {
-        GridResize(JSON.parse(localStorage.getItem('e')));
+        var oGridData;
+
+        if (typeof localStorage !== 'undefined')
+            oGridData = JSON.parse(localStorage.getItem('e'));
+        else
+            oGridData = {};
+
+        GridResize(oGridData);
     });
 </script>
 
@@ -57,7 +64,7 @@
                 <ClientEvents OnGridCreated="GridResize" />
             </ClientSettings>
             <ExportSettings FileName="grid"></ExportSettings>
-            <MasterTableView EditMode="InPlace">
+            <MasterTableView AllowMultiColumnSorting="true" EditMode="InPlace">
                 <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                  ShowExportToCsvButton="true" ShowExportToPdfButton="true" />
             </MasterTableView>
