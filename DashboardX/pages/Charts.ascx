@@ -1,8 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Charts.ascx.cs" Inherits="DashboardX.pages.Charts" %>
 
 <asp:SqlDataSource ID="SqlDataSource_TotalSales" runat="server" 
-    ConnectionString="<%$ ConnectionStrings:LocalConnectionString %>"
-    SelectCommand="select SUM(TransAmount) as TotalSales, Color, SubmitDate from dbx.dbo.SampleData group by Color, SubmitDate">
+    ConnectionString="<%$ ConnectionStrings:LocalConnectionString %>">
 </asp:SqlDataSource>
 
 <%--select CAST(REPLACE(STR(SUM(TransAmount), max(LEN(convert(varchar, TransAmount)))+1, 2), SPACE(1), '0') AS varchar) as TotalSales, SubmitDate from RCDASH.dbo.SampleTable group by SubmitDate--%>
