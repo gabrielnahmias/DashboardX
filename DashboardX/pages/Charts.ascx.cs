@@ -20,12 +20,24 @@ namespace DashboardX.pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //RadHtmlChart1.Height = 400;
-            //RadHtmlChart1.Width = 450;
-            //RadHtmlChart2.Height = 400;
-            //RadHtmlChart2.Width = 450;
-            //RadHtmlChart1.DataSource = SqlDataSource_Columns;
-            //RadHtmlChart1.DataBind();
+            string sql = "";
+
+            HttpContext c = HttpContext.Current;
+
+            if (c.Request["store"] != null)
+            {
+                // Store specified so use that in query (DBAName).
+                sql = String.Format("select SUM(TransAmount) as TotalSales, Color, SubmitDate from dbx.dbo.SampleData where DBAName='{0}' group by Color, SubmitDate", c.Request["store"]);
+            }
+            else
+            {
+                // No store specified so use default query.
+                sql = "select SUM(TransAmount) as TotalSales, Color, SubmitDate from dbx.dbo.SampleData group by Color, SubmitDate";
+            }
+
+            // Assign to proper SelectCommand.
+            SqlDataSource_TotalSales.SelectCommand = sql;
+
             DataBind();
         }
 

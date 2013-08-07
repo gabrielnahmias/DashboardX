@@ -15,7 +15,25 @@ namespace DashboardX.pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            string sql = "";
 
+            HttpContext c = HttpContext.Current;
+
+            if (c.Request["store"] != null)
+            {
+                // Store specified so use that in query (DBAName).
+                sql = String.Format("select [LocationID], [ExternalMerchantNumber], [DBAName], [CurrencyCode], [Description], [SubmitDate], [TransCount], [TransAmount], [InterchangeExpense], [Rate] from [dbx].[dbo].[SampleData] where DBAName='{0}'", c.Request["store"]);
+            }
+            else
+            {
+                // No store specified so use default query.
+                sql = "select [LocationID], [ExternalMerchantNumber], [DBAName], [CurrencyCode], [Description], [SubmitDate], [TransCount], [TransAmount], [InterchangeExpense], [Rate] from [dbx].[dbo].[SampleData]";
+            }
+
+            // Assign to proper SelectCommand.
+            SqlDataSource_Grid.SelectCommand = sql;
+
+            DataBind();
         }
 
         public void Export(object sender, EventArgs e)
