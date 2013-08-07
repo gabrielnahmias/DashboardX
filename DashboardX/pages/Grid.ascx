@@ -1,8 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Grid.ascx.cs" Inherits="DashboardX.pages.Grid" %>
 
 <asp:SqlDataSource ID="SqlDataSource_Grid" runat="server" 
-    ConnectionString="<%$ ConnectionStrings:LocalConnectionString %>"
-    SelectCommand="select [LocationID], [ExternalMerchantNumber], [DBAName], [CurrencyCode], [Description], [SubmitDate], [TransCount], [TransAmount], [InterchangeExpense], [Rate] from [dbx].[dbo].[SampleData]">
+    ConnectionString="<%$ ConnectionStrings:LocalConnectionString %>">
 </asp:SqlDataSource>
 
 <script type="text/javascript">
