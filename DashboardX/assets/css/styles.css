@@ -1,6 +1,54 @@
 ﻿@import "../fonts/Calligraffitti/calligraffitti.css";
 @import "http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic";
 
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar:window-inactive {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+    background: #EEEEEE;
+    border: 1px solid #CCCCCC;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);*/
+    background: #CCCCCC;
+    border: 1px solid #AAAAAA;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-track:window-inactive {
+    background: #FFFFFF;
+    border: 1px solid #EEEEEE;
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: #EEEEEE;
+    border: 1px solid #CCCCCC;
+}
+/*::-webkit-scrollbar {
+    
+}
+::-webkit-scrollbar-button {
+    
+}
+::-webkit-scrollbar-track {
+    
+}
+::-webkit-scrollbar-track-piece {
+    
+}
+::-webkit-scrollbar-thumb {
+    
+}
+::-webkit-scrollbar-corner {
+    
+}
+::-webkit-resizer {
+    
+}*/
+
 * {
     font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
 }
@@ -204,6 +252,35 @@ select {
     text-align: right;
 }
 
+#tools {
+    border-left: 2px solid #FFFFFF;
+    float: left;
+    margin: 0 10px;
+    padding: 0 10px;
+}
+    #tools > div {
+        cursor: pointer;
+        height: 22px;
+        float: left;
+        margin-right: 10px;
+        width: 22px;
+    }
+    #tools > div:hover {
+        background-position: 0 -23px !important;
+    }
+    #tools > div:active {
+        background-position: 0 -46px !important;
+    }
+    #tools > div:last-child {
+        margin-right: 0;
+    }
+    #tools #store {
+        background: url('../img/icons/store.png') no-repeat;
+    }
+    #tools #controls {
+        background: url('../img/icons/controls.png') no-repeat;
+    }
+
 ._rtsLevel2 {
     margin-top: -10px;
 }
@@ -388,21 +465,28 @@ select {
 .loginlink:after {
     content: "▼";
 }
-    .loginlink:hover {
+    .loginlink:hover,
+    #tools > div:hover {
         background: none repeat scroll 0 0 #B5CCDE;
     }
-    .loginlink:active, .loginlink:focus {
-        outline: medium none;
+    .loginlink:active,
+    .loginlink:focus,
+    #tools > div:active,
+    #tools > div:focus {
+        /*outline: medium none;*/
     }
-    .loginlink.clicked {
+    .loginlink.clicked,
+    #tools > div.clicked {
         background: none repeat scroll 0 0 #D7E5EE;
         border-radius: 5px 5px 0 0;
         color: #256483;
     }
-    .loginlink.clicked:after {
+    .loginlink.clicked:after,
+    #tools > div.clicked:after {
         content: "▲";
     }
-    .loginlink.clicked:hover {
+    .loginlink.clicked:hover,
+    #tools > div.clicked:hover {
         background: none repeat scroll 0 0 #D7E5EE;
     }
 
