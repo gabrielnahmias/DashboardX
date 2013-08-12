@@ -180,17 +180,11 @@ TODO:
                     <% if (c.Request["lid"] != null)
                        { %>
                     <strong>Store:</strong> <span><%
-                        //c.Request["lid"]
                         dv = (DataView)SqlDataSource_SelectedStore.Select(DataSourceSelectArguments.Empty);
+
+                        string sStore = dv.Table.Rows[0].ItemArray[0].ToString();
                         
-                        for (int i = 0; i < dv.Table.Rows.Count; i++)
-                        {
-                            object[] row = dv.Table.Rows[i].ItemArray;
-
-                            string sStore = row[0].ToString();
-
-                            Response.Write(sStore);
-                        }
+                        Response.Write(sStore);
                     %></span>
                     <% } %>
                 </div>
