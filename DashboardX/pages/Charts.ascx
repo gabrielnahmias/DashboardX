@@ -62,9 +62,11 @@
             }, 3000);
         }
     });
-    (function () {
+    (function ($) {
         //var $d = $(document);
         $(function () {
+            $("tr.rdGripTop").attr("title", "Grab and drag to move this chart.");
+
             // When you hover over a chart, show the download button/dropdown
             // and unless the user hovers over that specific area, hide it
             // within 3 seconds of being shown. Also, if the user's mouse leaves
@@ -89,9 +91,6 @@
                 $(this).data("timeoutID", timeoutID);
             });
 
-            //$("[id*=Panel]").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all");
-        });
-        $(function () {
             $("#charts").css("visibility", "hidden");
 
             $("#overlay").find("#message").html("Loading chart positions...").end().fadeIn();
@@ -112,18 +111,20 @@
                             sDockID = $dock.attr("id"),
                             oDock = $find(sDockID),
                             oDockZone = oDock.get_parent();
-                        
+
                         console.debug("Undocking " + chartType + " chart.");
                         oDock.undock();
                         console.debug("Docking " + chartType + " chart at position " + iPlace + ".");
                         oDockZone.dock(oDock, iPlace - 1);
                     }
-                    
+
                     $("#charts").hide().css("visibility", "visible").fadeIn();
                 }
             });
+
+            //$("[id*=Panel]").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all");
         });
-    })();
+    })(jQuery);
 </script>
 
 <asp:HiddenField runat="server" ID="svgHolder" />
@@ -140,7 +141,7 @@
                                 <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
 	                            <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
                             </asp:DropDownList>
-                            <asp:Button ID="Button1" runat="server" CssClass="small button" Text="Download Image" OnClick="DownloadColumnChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart1'); return false;" />
+                            <asp:Button ID="Button1" runat="server" CssClass="button" Text="Download Image" OnClick="DownloadColumnChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart1'); return false;" />
                         </div>
                         <telerik:RadHtmlChart ClientIDMode="Static" ID="RadHtmlChart1" runat="server" DataSourceID="SqlDataSource_TotalSales">
                             <PlotArea>
@@ -177,7 +178,7 @@
                                 <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
 	                            <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
                             </asp:DropDownList>
-                            <asp:Button ID="Button2" runat="server" CssClass="small button" Text="Download Image" OnClick="DownloadPieChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart2'); return false;" />
+                            <asp:Button ID="Button2" runat="server" CssClass="button" Text="Download Image" OnClick="DownloadPieChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart2'); return false;" />
                         </div>
                         <telerik:RadHtmlChart ClientIDMode="Static" ID="RadHtmlChart2" runat="server"
                             Transitions="true" DataSourceID="SqlDataSource_TotalSales">
@@ -213,7 +214,7 @@
                                 <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
 	                            <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
                             </asp:DropDownList>
-                            <asp:Button ID="Button3" runat="server" CssClass="small button" Text="Download Image" OnClick="DownloadBarChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart3'); return false;" />
+                            <asp:Button ID="Button3" runat="server" CssClass="button" Text="Download Image" OnClick="DownloadBarChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart3'); return false;" />
                         </div>
                         <telerik:RadHtmlChart ClientIDMode="Static" ID="RadHtmlChart3" runat="server" DataSourceID="SqlDataSource_TotalSales">
                             <PlotArea>
@@ -250,7 +251,7 @@
                                 <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
 	                            <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
                             </asp:DropDownList>
-                            <asp:Button ID="Button4" runat="server" CssClass="small button" Text="Download Image" OnClick="DownloadLineChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart4'); return false;" />
+                            <asp:Button ID="Button4" runat="server" CssClass="button" Text="Download Image" OnClick="DownloadLineChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart4'); return false;" />
                         </div>
                         <telerik:RadHtmlChart ClientIDMode="Static" ID="RadHtmlChart4" runat="server" DataSourceID="SqlDataSource_TotalSales">
                             <PlotArea>
