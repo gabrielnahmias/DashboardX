@@ -49,7 +49,7 @@
 	        <asp:ListItem Text="XLS (HTML)" Value="xls"></asp:ListItem>
 	        <asp:ListItem Text="XLS (BIFF)" Value="xls2"></asp:ListItem>
         </asp:DropDownList>
-        <asp:Button ID="Button1" runat="server" CssClass="small button" Text="Download File" OnClick="Export" />
+        <asp:Button ID="Button1" runat="server" CssClass="button" Text="Download File" OnClick="Export" />
     </div>
 </div>
 
