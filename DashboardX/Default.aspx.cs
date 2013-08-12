@@ -21,6 +21,8 @@ public partial class Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        SqlDataSource_SelectedStore.SelectParameters.Clear();
+
         if (Request["lid"] != null)
             SqlDataSource_SelectedStore.SelectParameters.Add("lid", Request["lid"]);
 
