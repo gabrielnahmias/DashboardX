@@ -66,7 +66,9 @@
         //var $d = $(document);
         $(function () {
             $("tr.rdGripTop").attr("title", "Grab and drag to move this chart.");
-
+            
+            $(".download-image > .button").attr("title", "Download image of the chart");
+            
             // When you hover over a chart, show the download button/dropdown
             // and unless the user hovers over that specific area, hide it
             // within 3 seconds of being shown. Also, if the user's mouse leaves
@@ -141,7 +143,7 @@
                                 <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
 	                            <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
                             </asp:DropDownList>
-                            <asp:Button ID="Button1" runat="server" CssClass="button" Text="Download Image" OnClick="DownloadColumnChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart1'); return false;" />
+                            <asp:Button ID="Button1" runat="server" CssClass="strong caps button" Text="Download" OnClick="DownloadColumnChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart1'); return false;" />
                         </div>
                         <telerik:RadHtmlChart ClientIDMode="Static" ID="RadHtmlChart1" runat="server" DataSourceID="SqlDataSource_TotalSales">
                             <PlotArea>
@@ -178,7 +180,7 @@
                                 <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
 	                            <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
                             </asp:DropDownList>
-                            <asp:Button ID="Button2" runat="server" CssClass="button" Text="Download Image" OnClick="DownloadPieChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart2'); return false;" />
+                            <asp:Button ID="Button2" runat="server" CssClass="strong caps button" Text="Download" OnClick="DownloadPieChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart2'); return false;" />
                         </div>
                         <telerik:RadHtmlChart ClientIDMode="Static" ID="RadHtmlChart2" runat="server"
                             Transitions="true" DataSourceID="SqlDataSource_TotalSales">
@@ -214,7 +216,7 @@
                                 <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
 	                            <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
                             </asp:DropDownList>
-                            <asp:Button ID="Button3" runat="server" CssClass="button" Text="Download Image" OnClick="DownloadBarChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart3'); return false;" />
+                            <asp:Button ID="Button3" runat="server" CssClass="strong caps button" Text="Download" OnClick="DownloadBarChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart3'); return false;" />
                         </div>
                         <telerik:RadHtmlChart ClientIDMode="Static" ID="RadHtmlChart3" runat="server" DataSourceID="SqlDataSource_TotalSales">
                             <PlotArea>
@@ -251,7 +253,7 @@
                                 <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
 	                            <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
                             </asp:DropDownList>
-                            <asp:Button ID="Button4" runat="server" CssClass="button" Text="Download Image" OnClick="DownloadLineChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart4'); return false;" />
+                            <asp:Button ID="Button4" runat="server" CssClass="strong caps button" Text="Download" OnClick="DownloadLineChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart4'); return false;" />
                         </div>
                         <telerik:RadHtmlChart ClientIDMode="Static" ID="RadHtmlChart4" runat="server" DataSourceID="SqlDataSource_TotalSales">
                             <PlotArea>
