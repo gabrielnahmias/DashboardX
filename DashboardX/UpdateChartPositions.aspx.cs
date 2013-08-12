@@ -28,11 +28,8 @@ namespace DashboardX
                 Response.Write("No positions specified.");
                 return;
             }
-
-            string sql = String.Format("update dbx.dbo.ChartPositions set Position={0} where Type='bar';" +
-                                       "update dbx.dbo.ChartPositions set Position={1} where Type='column';" +
-                                       "update dbx.dbo.ChartPositions set Position={2} where Type='line';" +
-                                       "update dbx.dbo.ChartPositions set Position={3} where Type='pie';", cp.Bar, cp.Column, cp.Line, cp.Pie);
+            
+            string sql = String.Format("update dbx.dbo.ChartPositions set Position=(case when Type='bar' then {0} when Type='column' then {1} when Type='line' then {2} when Type='pie' then {3} end)", cp.Bar, cp.Column, cp.Line, cp.Pie);
 
             sMsg = String.Format("Charts have been changed to the following positions:\n" +
                                  "  Bar: {0}\n" +
