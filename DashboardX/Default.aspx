@@ -25,9 +25,9 @@ TODO:
  - Use Sessions and such to make storing the selected store and other related data easier.
  - Persist the current tab with sessions or the popstate functionality.
  - Use parameters instead of String.Format() for SQL queries and also consolidate SQL into a one liner instead of conditional (ternary).
- - Use LocationID in conjunction with DBAName to make a less error prone system.
- - Maybe even concoct a way to retreieve data from a master set using a class (getStore(), getID(), etc.).
+ - Maybe even concoct a way to retrieve data from a master set using a class (getStore(), getID(), etc.).
  - Get all data at once at beginning.
+ - Make pie chart at beginning from which is allowed the selection of a store. The chart will show the total sales for each store separately.
 --%>
 
 <!DOCTYPE html>
