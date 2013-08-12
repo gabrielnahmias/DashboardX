@@ -46,7 +46,7 @@
             sFormat = $(this).find(":selected").text();
             $btn.attr("title", "Download " + sFormat + " file of the grid");
         });
-    })(jQuery);
+    }(jQuery));
 </script>
 
 <asp:HiddenField runat="server" ID="contentHolder" />
