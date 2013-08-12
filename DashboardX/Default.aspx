@@ -11,7 +11,12 @@
 <asp:SqlDataSource ID="SqlDataSource_Stores" runat="server"
     ConnectionString="<%$ ConnectionStrings:LocalConnectionString %>"
     DataSourceMode="DataSet"
-    SelectCommand="select distinct DBAName from dbx.dbo.SampleData">
+    SelectCommand="select distinct LocationID, DBAName from dbx.dbo.SampleData">
+</asp:SqlDataSource>
+<asp:SqlDataSource ID="SqlDataSource_SelectedStore" runat="server"
+    ConnectionString="<%$ ConnectionStrings:LocalConnectionString %>"
+    DataSourceMode="DataSet"
+    SelectCommand="select distinct DBAName from dbx.dbo.SampleData where LocationID=@lid">
 </asp:SqlDataSource>
 
 <%--
@@ -22,7 +27,7 @@ TODO:
  - Use parameters instead of String.Format() for SQL queries and also consolidate SQL into a one liner instead of conditional (ternary).
  - Use LocationID in conjunction with DBAName to make a less error prone system.
  - Maybe even concoct a way to retreieve data from a master set using a class (getStore(), getID(), etc.).
-
+ - Get all data at once at beginning.
 --%>
 
 <!DOCTYPE html>
@@ -146,13 +151,16 @@ TODO:
                                     {
                                         object[] row = dv.Table.Rows[i].ItemArray;
                                         
-                                        foreach (object item in row)
-                                        {
-                                            string sStore = item.ToString();
-                                            bool bSelected = (c.Request["store"] != null && sStore.Equals(c.Request["store"]));
+                                        string sSID = row[0].ToString(),
+                                               sSelectedSID = null,
+                                               sStore = row[1].ToString();
 
-                                            Response.Write(String.Format("<li{0}><a href=\"?store={1}\"{2}>{3}</a></li>", (bSelected ? " class=\"checked\" title=\"Currently selected store\"" : ""), HttpUtility.UrlEncode(sStore), (bSelected ? " onclick=\"return false;\"" : ""), sStore));
-                                        }
+                                        if (c.Request["lid"] != null)
+                                            sSelectedSID = c.Request["lid"];
+
+                                        bool bSelected = (sSelectedSID != null && sSID.Equals(sSelectedSID));
+
+                                        Response.Write(String.Format("<li{0}><a href=\"?lid={1}\"{2}>{3}</a></li>", (bSelected ? " class=\"checked\" title=\"Currently selected store\"" : ""), sSID, (bSelected ? " onclick=\"return false;\"" : ""), sStore));
                                     }
                                 %>
                                 <li class="dropdown-divider"></li>
@@ -169,9 +177,21 @@ TODO:
                     </section>
                 </div>
                 <div id="info">
-                    <% if (c.Request["store"] != null)
+                    <% if (c.Request["lid"] != null)
                        { %>
-                    <strong>Store:</strong> <span><%=c.Request["store"]%></span>
+                    <strong>Store:</strong> <span><%
+                        //c.Request["lid"]
+                        dv = (DataView)SqlDataSource_SelectedStore.Select(DataSourceSelectArguments.Empty);
+                        
+                        for (int i = 0; i < dv.Table.Rows.Count; i++)
+                        {
+                            object[] row = dv.Table.Rows[i].ItemArray;
+
+                            string sStore = row[0].ToString();
+
+                            Response.Write(sStore);
+                        }
+                    %></span>
                     <% } %>
                 </div>
                 <div id="login_container">
