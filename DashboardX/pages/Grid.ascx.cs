@@ -38,28 +38,26 @@ namespace DashboardX.pages
 
         public void Export(object sender, EventArgs e)
         {
-            string sFormat = DropDownList1.SelectedValue;
-            
-            if (sFormat.Equals("csv"))
+            string sFormat = DropDownList1.SelectedValue.ToLower();
+
+            switch (sFormat)
             {
-                RadGrid1.MasterTableView.ExportToCSV();
-            }
-            else if (sFormat.Equals("doc"))
-            {
-                RadGrid1.MasterTableView.ExportToWord();
-            }
-            else if (sFormat.Equals("pdf"))
-            {
-                RadGrid1.MasterTableView.ExportToPdf();
-            }
-            else if (sFormat.Equals("xls"))
-            {
-                RadGrid1.MasterTableView.ExportToExcel();
-            }
-            else if (sFormat.Equals("xls2"))
-            {
-                RadGrid1.ExportSettings.Excel.Format = Telerik.Web.UI.GridExcelExportFormat.Biff;
-                RadGrid1.MasterTableView.ExportToExcel();
+                case "csv":
+                    RadGrid1.MasterTableView.ExportToCSV();
+                    break;
+                case "doc":
+                    RadGrid1.MasterTableView.ExportToWord();
+                    break;
+                case "pdf":
+                    RadGrid1.MasterTableView.ExportToPdf();
+                    break;
+                case "xls":
+                    RadGrid1.MasterTableView.ExportToExcel();
+                    break;
+                case "xls2":
+                    RadGrid1.ExportSettings.Excel.Format = Telerik.Web.UI.GridExcelExportFormat.Biff;
+                    RadGrid1.MasterTableView.ExportToExcel();
+                    break;
             }
         }
 
