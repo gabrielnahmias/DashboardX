@@ -140,7 +140,7 @@ TODO:
                     <div id="store" title="Select store" data-dropdown="#dd_store"></div>
                     <div id="controls" title="Controls" data-dropdown="#dd_controls"></div>
                     <section id="dd_container">
-                        <div id="dd_store" class="dropdown dropdown-scroll dropdown-tip">
+                        <div id="dd_store" class="dropdown dropdown-relative dropdown-scroll dropdown-tip">
                             <ul class="dropdown-menu">
                                 <li class="dropdown-menu-title">Select Store</li>
                                 <%
@@ -164,10 +164,10 @@ TODO:
                                     }
                                 %>
                                 <li class="dropdown-divider"></li>
-                                <li class="center"><a href="Default.aspx">All</a></li>
+                                <li class="center<% if (c.Request["lid"] == null) Response.Write(" checked\" title=\"All stores are currently selected\""); else Response.Write("\""); %>><a href="Default.aspx">All</a></li>
                             </ul>
                         </div>
-                        <div id="dd_controls" class="dropdown dropdown-tip">
+                        <div id="dd_controls" class="dropdown dropdown-relative dropdown-tip">
                             <ul class="dropdown-menu">
                                 <li><a href="#">Theme</a></li>
                                 <li class="dropdown-divider"></li>
