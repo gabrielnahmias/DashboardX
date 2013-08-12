@@ -37,7 +37,7 @@ namespace DashboardX.pages
 
             // Assign to proper SelectCommand.
             SqlDataSource_TotalSales.SelectCommand = sql;
-
+            
             DataBind();
         }
 
@@ -69,7 +69,7 @@ namespace DashboardX.pages
         /// <param name="sender">Who ran this function?</param>
         /// <param name="e">Event data.</param>
         /// <param name="chart">The chart of which to generate an image.</param>
-        /// <param name="ddl">The dropdown list with the format desired selected.</param>
+        /// <param name="ddl">The dropdown list with the format desired selected (PNG/PDF).</param>
         public void DownloadImage(object sender, EventArgs e, RadHtmlChart chart, DropDownList ddl)
         {
             //obtain the necessary settings for exporting the chart
