@@ -1,0 +1,6 @@
+[submodule "DashboardX/assets/js/dd"]
+	path = DashboardX/assets/js/dd
+	url = git@github.com:gabrielnahmias/jquery-dropdown.git
+[submodule "DashboardX/assets/js/dropdown"]
+	path = DashboardX/assets/js/dropdown
+	url = git@github.com:gabrielnahmias/jquery-dropdown.git
