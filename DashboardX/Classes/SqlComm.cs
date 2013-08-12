@@ -8,6 +8,24 @@ namespace DashboardX
 {
     public class SqlComm
     {
+        private static string _conn;
+
+        /// <summary>
+        /// The connection string to use for queries.
+        /// </summary>
+        public static string ConnectionString
+        {
+            get
+            {
+                return _conn;
+            }
+            set
+            {
+                _conn = value;
+                conn = new SqlConnection(_conn);
+            }
+        }
+
         private List<object[]> _result;
         public List<object[]> Result
         {
@@ -17,12 +35,7 @@ namespace DashboardX
             }
         }
 
-        /// <summary>
-        /// The connection string to use for queries.
-        /// </summary>
-        public static string ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["LocalConnectionString"].ConnectionString;
-
-        private SqlConnection conn = new SqlConnection(ConnectionString);
+        private static SqlConnection conn = new SqlConnection(ConnectionString);
         private SqlDataAdapter da = new SqlDataAdapter();
         public SqlConnection Connection
         {
@@ -31,14 +44,17 @@ namespace DashboardX
                 return conn;
             }
         }
-
+        
         public SqlComm()
         {
+            ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["LocalConnectionString"].ConnectionString;
+            conn = new SqlConnection(ConnectionString);
         }
 
         public SqlComm(string sConnectionString)
         {
             ConnectionString = sConnectionString;
+            conn = new SqlConnection(ConnectionString);
         }
 
         /// <summary>
