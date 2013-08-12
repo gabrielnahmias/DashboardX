@@ -36,6 +36,17 @@
 
         GridResize(oGridData);
     });
+    $(function ($) {
+        var $btn = $("#download_file > .button"),
+            $select = $("#download_file > select"),
+            sFormat = $select.find(":selected").text();
+
+        $btn.attr("title", "Download " + sFormat + " file of the grid");
+        $select.change(function () {
+            sFormat = $(this).find(":selected").text();
+            $btn.attr("title", "Download " + sFormat + " file of the grid");
+        });
+    })(jQuery);
 </script>
 
 <asp:HiddenField runat="server" ID="contentHolder" />
@@ -49,7 +60,7 @@
 	        <asp:ListItem Text="XLS (HTML)" Value="xls"></asp:ListItem>
 	        <asp:ListItem Text="XLS (BIFF)" Value="xls2"></asp:ListItem>
         </asp:DropDownList>
-        <asp:Button ID="Button1" runat="server" CssClass="button" Text="Download File" OnClick="Export" />
+        <asp:Button ID="Button1" runat="server" CssClass="strong caps button" Text="Download" OnClick="Export" />
     </div>
 </div>
 
