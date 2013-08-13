@@ -11,8 +11,8 @@
 
     // TODO: Save every position and run that as query.
     //       Maybe use master site file for this so charts can be sorted server-side.
-    DBX.Events.DockPositionChanged = function (sender, e) {
-        //console.debug(sender, e);
+    DBX.events.dockPositionChanged = function (sender, e) {
+        DBX.console.debug(sender, e);
         var /*$dock = $(sender._element),
             $chart = $dock.find(".chart"),
             sChart = $chart.attr("id"),
@@ -33,20 +33,19 @@
             test: !!window.JSON && !!JSON.stringify,
             nope: "<%=Globals.Dirs.JS%>/json3.min.js",
             complete: function (e) {
-                //console.debug(oPositions);
                 $.post("UpdateChartPositions.aspx", {
                     positions: JSON.stringify(oPositions)//"{Position:" + iPlace + ", Type:'" + sChart + "}'"
                 }, function (data) {
-                    console.debug(data);
+                    DBX.console.debug(data);
                 });
             }
         });
     }
     $(function () {
         // This needs to be wrapped inside a $(document).ready() for $find() to work.. why?
-        DBX.Utils.getSvgContent = function (sender, chart) {
+        DBX.utils.getSvgContent = function (sender, chart) {
             // Obtain an SVG version of the chart regardless of the browser.
-            console.debug($find("RadHtmlChart1"));
+            DBX.console.debug($find("RadHtmlChart1"));
             var chartRendering = $find(chart).getSVGString();
             $("#overlay").find("#message").html("Generating chart...").end().fadeIn();
 
@@ -83,7 +82,7 @@
             }).mouseleave(function () {
                 $(this).find(".download-image").hide();
             }).find(".download-image").mouseenter(function (e) {
-                //console.debug(e);
+                //DBX.console.debug(e);
                 //alert($(this).data("timeoutID"))
                 clearTimeout($(this).data("timeoutID"));
             }).mouseleave(function () {
@@ -100,7 +99,7 @@
             $.ajax("LoadChartPositions.aspx", {
                 dataType: "json",
                 success: function (data) {
-                    //console.debug("Data:",data);
+                    //DBX.console.debug("Data:",data);
                     $("#overlay").fadeOut(400, function () {
                         $(this).find("#message").html("");
                     });
@@ -114,9 +113,9 @@
                             oDock = $find(sDockID),
                             oDockZone = oDock.get_parent();
 
-                        console.debug("Undocking " + chartType + " chart.");
+                        DBX.console.debug("Undocking " + chartType + " chart.");
                         oDock.undock();
-                        console.debug("Docking " + chartType + " chart at position " + iPlace + ".");
+                        DBX.console.debug("Docking " + chartType + " chart at position " + iPlace + ".");
                         oDockZone.dock(oDock, iPlace - 1);
                     }
 
@@ -135,7 +134,7 @@
     <telerik:RadDockLayout runat="server" ID="RadDockLayout1">
         <telerik:RadDockZone runat="server" ID="RadDockZoneHorizontal1" Orientation="Horizontal"
         Height="881px" Width="920px">
-            <telerik:RadDock OnClientDockPositionChanged="DBX.Events.DockPositionChanged" runat="server" ID="RadDock1" DockHandle="Grip" Title="" Text="" Height="440px" Width="460px">
+            <telerik:RadDock OnClientDockPositionChanged="DBX.events.dockPositionChanged" runat="server" ID="RadDock1" DockHandle="Grip" Title="" Text="" Height="440px" Width="460px">
                 <ContentTemplate>
                     <div id="column" class="chart">
                         <div class="download-image">
@@ -143,7 +142,7 @@
                                 <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
 	                            <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
                             </asp:DropDownList>
-                            <asp:Button ID="Button1" runat="server" CssClass="strong caps button" Text="Download" OnClick="DownloadColumnChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart1'); return false;" />
+                            <asp:Button ID="Button1" runat="server" CssClass="strong caps button" Text="Download" OnClick="DownloadColumnChart" OnClientClick="DBX.utils.getSvgContent(this, 'RadHtmlChart1'); return false;" />
                         </div>
                         <telerik:RadHtmlChart ClientIDMode="Static" ID="RadHtmlChart1" runat="server" DataSourceID="SqlDataSource_TotalSales">
                             <PlotArea>
@@ -172,7 +171,7 @@
                     </div>
                 </ContentTemplate>
             </telerik:RadDock>
-            <telerik:RadDock OnClientDockPositionChanged="DBX.Events.DockPositionChanged" runat="server" ID="RadDock2" DockHandle="Grip" Title="" Text="" Height="440px" Width="460px">
+            <telerik:RadDock OnClientDockPositionChanged="DBX.events.dockPositionChanged" runat="server" ID="RadDock2" DockHandle="Grip" Title="" Text="" Height="440px" Width="460px">
                 <ContentTemplate>
                     <div id="pie" class="chart">
                         <div class="download-image">
@@ -180,7 +179,7 @@
                                 <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
 	                            <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
                             </asp:DropDownList>
-                            <asp:Button ID="Button2" runat="server" CssClass="strong caps button" Text="Download" OnClick="DownloadPieChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart2'); return false;" />
+                            <asp:Button ID="Button2" runat="server" CssClass="strong caps button" Text="Download" OnClick="DownloadPieChart" OnClientClick="DBX.utils.getSvgContent(this, 'RadHtmlChart2'); return false;" />
                         </div>
                         <telerik:RadHtmlChart ClientIDMode="Static" ID="RadHtmlChart2" runat="server"
                             Transitions="true" DataSourceID="SqlDataSource_TotalSales">
@@ -208,7 +207,7 @@
                     </div>
                 </ContentTemplate>
             </telerik:RadDock>
-            <telerik:RadDock OnClientDockPositionChanged="DBX.Events.DockPositionChanged" runat="server" ID="RadDock3" DockHandle="Grip" Title="" Text="" Height="440px" Width="460px">
+            <telerik:RadDock OnClientDockPositionChanged="DBX.events.dockPositionChanged" runat="server" ID="RadDock3" DockHandle="Grip" Title="" Text="" Height="440px" Width="460px">
                 <ContentTemplate>
                     <div id="bar" class="chart">
                         <div class="download-image">
@@ -216,7 +215,7 @@
                                 <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
 	                            <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
                             </asp:DropDownList>
-                            <asp:Button ID="Button3" runat="server" CssClass="strong caps button" Text="Download" OnClick="DownloadBarChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart3'); return false;" />
+                            <asp:Button ID="Button3" runat="server" CssClass="strong caps button" Text="Download" OnClick="DownloadBarChart" OnClientClick="DBX.utils.getSvgContent(this, 'RadHtmlChart3'); return false;" />
                         </div>
                         <telerik:RadHtmlChart ClientIDMode="Static" ID="RadHtmlChart3" runat="server" DataSourceID="SqlDataSource_TotalSales">
                             <PlotArea>
@@ -245,7 +244,7 @@
                     </div>
                 </ContentTemplate>
             </telerik:RadDock>
-            <telerik:RadDock OnClientDockPositionChanged="DBX.Events.DockPositionChanged" runat="server" ID="RadDock4" DockHandle="Grip" Title="" Text="" Height="440px" Width="460px">
+            <telerik:RadDock OnClientDockPositionChanged="DBX.events.dockPositionChanged" runat="server" ID="RadDock4" DockHandle="Grip" Title="" Text="" Height="440px" Width="460px">
                 <ContentTemplate>
                     <div id="line" class="chart">
                         <div class="download-image">
@@ -253,7 +252,7 @@
                                 <asp:ListItem Text="PNG" Value="png" Selected="true"></asp:ListItem>
 	                            <asp:ListItem Text="PDF" Value="pdf"></asp:ListItem>
                             </asp:DropDownList>
-                            <asp:Button ID="Button4" runat="server" CssClass="strong caps button" Text="Download" OnClick="DownloadLineChart" OnClientClick="DBX.Utils.getSvgContent(this, 'RadHtmlChart4'); return false;" />
+                            <asp:Button ID="Button4" runat="server" CssClass="strong caps button" Text="Download" OnClick="DownloadLineChart" OnClientClick="DBX.utils.getSvgContent(this, 'RadHtmlChart4'); return false;" />
                         </div>
                         <telerik:RadHtmlChart ClientIDMode="Static" ID="RadHtmlChart4" runat="server" DataSourceID="SqlDataSource_TotalSales">
                             <PlotArea>
