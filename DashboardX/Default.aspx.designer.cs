@@ -84,6 +84,24 @@ public partial class Default {
     protected global::Telerik.Web.UI.RadWindowManager RadWindowManager;
     
     /// <summary>
+    /// RadWindow_StoreSelector control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::Telerik.Web.UI.RadWindow RadWindow_StoreSelector;
+    
+    /// <summary>
+    /// LabelStartup control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Label LabelStartup;
+    
+    /// <summary>
     /// Login control.
     /// </summary>
     /// <remarks>
@@ -111,24 +129,6 @@ public partial class Default {
     protected global::Telerik.Web.UI.RadMultiPage RadMultiPage1;
     
     /// <summary>
-    /// RadPageView1 control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::Telerik.Web.UI.RadPageView RadPageView1;
-    
-    /// <summary>
-    /// Grid control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::DashboardX.pages.Grid Grid;
-    
-    /// <summary>
     /// RadPageView2 control.
     /// </summary>
     /// <remarks>
@@ -145,4 +145,22 @@ public partial class Default {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::DashboardX.pages.Charts Charts;
+    
+    /// <summary>
+    /// RadPageView1 control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::Telerik.Web.UI.RadPageView RadPageView1;
+    
+    /// <summary>
+    /// Grid control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::DashboardX.pages.Grid Grid;
 }
