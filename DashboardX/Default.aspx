@@ -37,6 +37,8 @@ TODO:
     <link href="favicon.ico" rel="shortcut icon" />
     <telerik:RadStyleSheetManager id="RadStyleSheetManager" runat="server" />
     <link href="<%=Globals.Dirs.CSS%>/styles.css" rel="stylesheet" type="text/css" />
+    <!-- sprintf -->
+    <script src="<%=Globals.Dirs.JS%>/sprintf.min.js" type="text/javascript"></script>
     <!-- jQuery -->
     <script src="<%=Globals.Dirs.JS%>/jquery-1.10.2.min.js" type="text/javascript"></script>
     <!-- jQuery UI -->
