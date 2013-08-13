@@ -27,6 +27,10 @@ namespace DashboardX
         }
 
         private List<object[]> _result;
+
+        /// <summary>
+        /// The result of the last executed query (as long as it actually returns one).
+        /// </summary>
         public List<object[]> Result
         {
             get
@@ -92,7 +96,7 @@ namespace DashboardX
         }
 
         /// <summary>
-        /// Retrieve an entire database table or part of it and stores the result in the Result field.
+        /// Retrieves an entire database table or part of it and stores the result in the Result field.
         /// </summary>
         /// <param name="sql">SQL query to execute.</param>
         /*public void getDataTable(string sql)
