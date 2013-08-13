@@ -40,6 +40,11 @@ public partial class Default : System.Web.UI.Page
         RadMultiPage1.SelectedIndex = iTab;
     }
 
+    protected void Page_LoadComplete(object sender, EventArgs e)
+    {
+        //LabelStartup.Text = "<script type=\"text/javascript\">radopen(\"\", \"RadWindow_StoreSelector\");</script>";
+    }
+
     public bool IsMobile
     {
         get
