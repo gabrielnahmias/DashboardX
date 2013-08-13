@@ -62,28 +62,35 @@ TODO:
 		    </Scripts>
 	    </telerik:RadScriptManager>
 	    <telerik:RadAjaxManager id="RadAjaxManager" runat="server">
-	    </telerik:RadAjaxManager>        
-        <telerik:RadWindowManager ID="RadWindowManager" runat="server" OnClientPageLoad="DBX.Events.WindowShown" MinimizeZoneID="tools" KeepInScreenBounds="true">
+	    </telerik:RadAjaxManager>
+        <telerik:RadWindowManager ID="RadWindowManager" runat="server" OnClientPageLoad="DBX.events.windowShown" MinimizeZoneID="tools" KeepInScreenBounds="true">
+            <Windows>
+                <telerik:RadWindow ID="RadWindow_StoreSelector" Behaviors="Close,Maximize" IconUrl="/assets/img/icons/win/store.png" Modal="true" OnClientClose="DBX.events.storeWindowClosed" runat="server">
+                    <ContentTemplate>
+                        Test
+                    </ContentTemplate>
+                </telerik:RadWindow>
+            </Windows>
         </telerik:RadWindowManager>
         <script type="text/javascript">
             // TODO: Add popstate, etc.
             /*window.onpopstate = function () {
                 var iIndex = history.state.tab;
 
-                //DBX.Events.TabSelected();
+                //DBX.events.tabSelected();
             }*/
-            DBX.Utils.OpenWindow = function (sWin) {
+            DBX.utils.openWindow = function (sWin) {
                 //Get RadWindow's element
                 var oWin = $find(sWin); //.get_element();
                 oWin.show();
             }
-            DBX.Events.TabSelected = function (sender, e) {
+            DBX.events.tabSelected = function (sender, e) {
                 var tab = e.get_tab(),
                     iIndex = tab.get_index(),
                     tabStrip = tab.get_parent(),
                     multiPage = tabStrip.get_multiPage();
 
-                //console.debug("Multipage:", multiPage);
+                DBX.console.debug("Multipage:", multiPage);
 
                 tabStrip.set_selectedIndex(iIndex);
                 multiPage.set_selectedIndex(iIndex);
@@ -99,12 +106,20 @@ TODO:
                 else
                     history.pushState(oData, sPushTitle, sQuery);*/
 
-                console.debug(sender, e);
+                DBX.console.debug(sender, e);
             }
-            DBX.Events.WindowShown = function (sender, args) {
+            DBX.events.storeWindowClosed = function (sender, args) {
                 //Get RadWindow's element
                 var oWin = sender.get_element();
-                console.debug(oWin);
+                DBX.console.debug(oWin);
+                //Get attribute's value
+                //var atributeValue = oWin.getAttribute("myAttribute");
+                //alert(atributeValue); 
+            }
+            DBX.events.windowShown = function (sender, args) {
+                //Get RadWindow's element
+                var oWin = sender.get_element();
+                DBX.console.debug(oWin);
                 //Get attribute's value
                 //var atributeValue = oWin.getAttribute("myAttribute");
                 //alert(atributeValue); 
@@ -123,7 +138,20 @@ TODO:
 
                 $(".rtsLI").disableSelection();
             });
+
+            $(window).load(function(){
+                <%
+                if (Session["lid"]==null)
+                {
+                // No store selected yet, so show the window.
+                %>
+                radopen("", "RadWindow_StoreSelector");
+                <%
+                }
+                %>
+            });
         </script>
+        <asp:Label runat="server" ID="LabelStartup"></asp:Label>
         <div id="overlay">
             <div id="loading_container">
                 <img src="<%=Globals.Dirs.Images%>/loading.gif" />
@@ -242,24 +270,24 @@ TODO:
             </header>
             <section id="content">
                 <telerik:RadTabStrip ID="RadTabStrip1" MultiPageID="RadMultiPage1" 
-                 OnClientTabSelected="DBX.Events.TabSelected" runat="server">
+                 OnClienttabSelected="DBX.events.tabSelected" runat="server">
                     <Tabs>
-                        <telerik:RadTab Text="<u>G</u>rid" NavigateUrl="/Default.aspx?tab=0" 
-                         AccessKey="G" ImageUrl="~/assets/img/icons/grid.png" 
-                         SelectedImageUrl="~/assets/img/icons/grid_selected.png">
-                        </telerik:RadTab>
                         <telerik:RadTab Text="<u>C</u>harts" NavigateUrl="/Default.aspx?tab=1"
                          AccessKey="C" ImageUrl="~/assets/img/icons/charts.png"
                          SelectedImageUrl="~/assets/img/icons/charts_selected.png">
                         </telerik:RadTab>
+                        <telerik:RadTab Text="<u>G</u>rid" NavigateUrl="/Default.aspx?tab=0" 
+                         AccessKey="G" ImageUrl="~/assets/img/icons/grid.png" 
+                         SelectedImageUrl="~/assets/img/icons/grid_selected.png">
+                        </telerik:RadTab>
                     </Tabs>
                 </telerik:RadTabStrip>
                 <telerik:RadMultiPage ID="RadMultiPage1" runat="server" SelectedIndex="0">
-                    <telerik:RadPageView ID="RadPageView1" runat="server">
-                        <uc1:Grid runat="server" ID="Grid" />
-                    </telerik:RadPageView>
                     <telerik:RadPageView ID="RadPageView2" runat="server">
                         <uc1:Charts runat="server" ID="Charts" />
+                    </telerik:RadPageView>
+                    <telerik:RadPageView ID="RadPageView1" runat="server">
+                        <uc1:Grid runat="server" ID="Grid" />
                     </telerik:RadPageView>
                 </telerik:RadMultiPage>
             </section>
