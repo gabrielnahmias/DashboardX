@@ -5,7 +5,7 @@
 </asp:SqlDataSource>
 
 <script type="text/javascript">
-    function GridResize(e) {
+    DBX.events.gridResize = function (e) {
         var seen = [],
             temp_e = JSON.stringify(e, function (key, val) {
                 if (typeof val == "object") {
@@ -13,7 +13,7 @@
                         return;
                     seen.push(val);
                 }
-                return val;     
+                return val;
             }),
             scrollArea = document.getElementById(e.ClientID + "_GridData"),
             iPadding = 280,
@@ -34,19 +34,21 @@
         else
             oGridData = {};
 
-        GridResize(oGridData);
+        DBX.events.gridResize(oGridData);
     });
-    $(function ($) {
+    $(function () {
+        // Add title to download button with chosen format included. This changes whenever
+        // a new format is chosen.
         var $btn = $("#download_file > .button"),
-            $select = $("#download_file > select"),
-            sFormat = $select.find(":selected").text();
+        $select = $("#download_file > select"),
+        sFormat = $select.find(":selected").text();
 
         $btn.attr("title", "Download " + sFormat + " file of the grid");
         $select.change(function () {
             sFormat = $(this).find(":selected").text();
             $btn.attr("title", "Download " + sFormat + " file of the grid");
         });
-    }(jQuery));
+    });
 </script>
 
 <asp:HiddenField runat="server" ID="contentHolder" />
@@ -71,7 +73,7 @@
             <ClientSettings>
                 <Resizing AllowColumnResize="true" AllowRowResize="true" />
                 <Scrolling AllowScroll="true" ScrollHeight="600px" UseStaticHeaders="true" />
-                <ClientEvents OnGridCreated="GridResize" />
+                <ClientEvents OnGridCreated="DBX.events.gridResize" />
             </ClientSettings>
             <ExportSettings FileName="grid"></ExportSettings>
             <MasterTableView AllowMultiColumnSorting="true" EditMode="InPlace">
