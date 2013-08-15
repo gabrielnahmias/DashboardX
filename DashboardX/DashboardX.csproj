@@ -130,6 +130,13 @@
     <Compile Include="UpdateChartPositions.aspx.designer.cs">
       <DependentUpon>UpdateChartPositions.aspx</DependentUpon>
     </Compile>
+    <Compile Include="InitChart.aspx.cs">
+      <DependentUpon>InitChart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InitChart.aspx.designer.cs">
+      <DependentUpon>InitChart.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\RadCaptcha\0.wav" />
@@ -182,6 +189,9 @@
     <Content Include="assets\img\icons\win\store.png" />
     <Content Include="assets\img\loading.gif" />
     <Content Include="assets\img\logo.png" />
+    <Content Include="assets\js\Console\Console.js" />
+    <Content Include="assets\js\Console\Console.min.js" />
+    <Content Include="assets\js\Console\index.html" />
     <Content Include="assets\js\dropdown\icons\arrow-curve-180-left.png" />
     <Content Include="assets\js\dropdown\icons\arrow-curve.png" />
     <Content Include="assets\js\dropdown\icons\clipboard.png" />
@@ -198,12 +208,14 @@
     <Content Include="assets\js\json3.min.js" />
     <Content Include="assets\js\modernizr.min.js" />
     <Content Include="assets\js\scripts.js" />
+    <Content Include="InitChart.aspx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Data\RadSpell\de-DE.tdf" />
     <None Include="App_Data\RadSpell\en-US.tdf" />
     <None Include="App_Data\RadSpell\fr-FR.tdf" />
     <Content Include="assets\js\sortable.min.js" />
+    <Content Include="assets\js\sprintf.min.js" />
     <Content Include="LoadChartPositions.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
@@ -214,6 +226,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="packages.config" />
+    <None Include="assets\js\Console\README.md" />
     <None Include="Properties\PublishProfiles\Azure.pubxml" />
     <None Include="Properties\PublishProfiles\Azure2.pubxml" />
     <None Include="Properties\PublishProfiles\Memphis.pubxml" />
