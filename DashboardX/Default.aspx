@@ -1,10 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="~/Default.aspx.cs" Inherits="Default" %>
-
 <%@ Import Namespace="DashboardX" %>
 <%@ Import Namespace="System.Data" %>
-
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
-
 <%@ Register Src="~/pages/Grid.ascx" TagPrefix="uc1" TagName="Grid" %>
 <%@ Register Src="~/pages/Charts.ascx" TagPrefix="uc1" TagName="Charts" %>
 
@@ -28,31 +25,33 @@ TODO:
  - Maybe even concoct a way to retrieve data from a master set using a class (getStore(), getID(), etc.).
  - Get all data at once at beginning.
  - Make pie chart at beginning from which is allowed the selection of a store. The chart will show the total sales for each store separately.
+ - Check if LID specified is valid!
+ - Fix messed up DB (used to not group by color for the same DBAName...)
+   select LocationID, SUM(TransAmount) as TotalSales, Color, DBAName from dbx.dbo.SampleData group by LocationID, Color, DBAName !!!WORKED ON ITS OWN!!!
 --%>
-
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title><%=AppInfo.Title%></title>
     <link href="favicon.ico" rel="shortcut icon" />
     <telerik:RadStyleSheetManager id="RadStyleSheetManager" runat="server" />
-    <link href="<%=Globals.Dirs.CSS%>/styles.css" rel="stylesheet" type="text/css" />
-    <!-- sprintf -->
-    <script src="<%=Globals.Dirs.JS%>/sprintf.min.js" type="text/javascript"></script>
+    <%=WebHelper.AddResource("styles.css", false, Globals.Dirs.CSS)%>
+    <!-- Console.js -->
+    <%=WebHelper.AddResource("Console.js", true, "Console")%>
     <!-- jQuery -->
-    <script src="<%=Globals.Dirs.JS%>/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <%=WebHelper.AddResource("jquery-1.10.2.min.js")%>
     <!-- jQuery UI -->
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/redmond/jquery-ui.min.css" rel="stylesheet" type="text/css" />
-    <script src="<%=Globals.Dirs.JS%>/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
+    <%=WebHelper.AddResource("http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/redmond/jquery-ui.min.css", false)%>
+    <%=WebHelper.AddResource("jquery-ui-1.10.3.min.js")%>
     <!-- Modernizr -->
-    <script src="<%=Globals.Dirs.JS%>/modernizr.min.js" type="text/javascript"></script>
+    <%=WebHelper.AddResource("modernizr.min.js")%>
     <!-- jQuery Easing -->
-    <script src="<%=Globals.Dirs.JS%>/jquery.easing.min.js" type="text/javascript"></script>
+    <%=WebHelper.AddResource("jquery.easing.min.js")%>
     <!-- Dropdown -->
-    <link href="<%=Globals.Dirs.JS%>/dropdown/jquery.dropdown.css" rel="stylesheet" type="text/css" />
-    <script src="<%=Globals.Dirs.JS%>/dropdown/jquery.dropdown.js" type="text/javascript"></script>
+    <%=WebHelper.AddResource("jquery.dropdown.css", true, "dropdown")%>
+    <%=WebHelper.AddResource("jquery.dropdown.js", true, "dropdown")%>
     <!-- Proprietary -->
-    <script src="<%=Globals.Dirs.JS%>/scripts.js" type="text/javascript"></script>
+    <%=WebHelper.AddResource("scripts.js")%>
     <% if (IsMobile) { %><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /><% } %>
 </head>
 <body>
@@ -67,10 +66,7 @@ TODO:
 	    </telerik:RadAjaxManager>
         <telerik:RadWindowManager ID="RadWindowManager" runat="server" OnClientPageLoad="DBX.events.windowShown" MinimizeZoneID="tools" KeepInScreenBounds="true">
             <Windows>
-                <telerik:RadWindow ID="RadWindow_StoreSelector" Behaviors="Close,Maximize" IconUrl="/assets/img/icons/win/store.png" Modal="true" OnClientClose="DBX.events.storeWindowClosed" runat="server">
-                    <ContentTemplate>
-                        Test
-                    </ContentTemplate>
+                <telerik:RadWindow ID="RadWindow_StoreSelector" runat="server" Behaviors="Maximize,Move" Title="Select a Store" VisibleStatusbar="false" IconUrl="/assets/img/icons/win/store.png" Modal="true" NavigateUrl="InitChart.aspx" OnClientClose="DBX.events.storeWindowClosed" Height="480" Width="700">
                 </telerik:RadWindow>
             </Windows>
         </telerik:RadWindowManager>
@@ -82,9 +78,7 @@ TODO:
                 //DBX.events.tabSelected();
             }*/
             DBX.utils.openWindow = function (sWin) {
-                //Get RadWindow's element
-                var oWin = $find(sWin); //.get_element();
-                oWin.show();
+                radopen("", sWin);
             }
             DBX.events.tabSelected = function (sender, e) {
                 var tab = e.get_tab(),
@@ -92,7 +86,7 @@ TODO:
                     tabStrip = tab.get_parent(),
                     multiPage = tabStrip.get_multiPage();
 
-                DBX.console.debug("Multipage:", multiPage);
+                Console.debug("Multipage:", multiPage);
 
                 tabStrip.set_selectedIndex(iIndex);
                 multiPage.set_selectedIndex(iIndex);
@@ -108,12 +102,12 @@ TODO:
                 else
                     history.pushState(oData, sPushTitle, sQuery);*/
 
-                DBX.console.debug(sender, e);
+                Console.debug(sender, e);
             }
             DBX.events.storeWindowClosed = function (sender, args) {
                 //Get RadWindow's element
                 var oWin = sender.get_element();
-                DBX.console.debug(oWin);
+                Console.debug(oWin);
                 //Get attribute's value
                 //var atributeValue = oWin.getAttribute("myAttribute");
                 //alert(atributeValue); 
@@ -121,7 +115,7 @@ TODO:
             DBX.events.windowShown = function (sender, args) {
                 //Get RadWindow's element
                 var oWin = sender.get_element();
-                DBX.console.debug(oWin);
+                Console.debug(oWin);
                 //Get attribute's value
                 //var atributeValue = oWin.getAttribute("myAttribute");
                 //alert(atributeValue); 
@@ -143,11 +137,13 @@ TODO:
 
             $(window).load(function(){
                 <%
-                if (Session["lid"]==null)
+                if (Session["lid"]==null && Request["all"] == null)
                 {
                 // No store selected yet, so show the window.
                 %>
-                radopen("", "RadWindow_StoreSelector");
+                $("#wrapper section").fadeOut(400, function() {
+                    radopen("", "RadWindow_StoreSelector");
+                });
                 <%
                 }
                 %>
@@ -194,7 +190,7 @@ TODO:
                                     }
                                 %>
                                 <li class="dropdown-divider"></li>
-                                <li class="center<% if (c.Request["lid"] == null) Response.Write(" checked\" title=\"All stores are currently selected\""); else Response.Write("\""); %>><a href="Default.aspx">All</a></li>
+                                <li class="center<% if (c.Request["lid"] == null) Response.Write(" checked\" title=\"All stores are currently selected\""); else Response.Write("\""); %>><a href="Default.aspx?all=1">All</a></li>
                             </ul>
                         </div>
                         <div id="dd_controls" class="dropdown dropdown-relative dropdown-tip">
