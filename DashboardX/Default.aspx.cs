@@ -19,6 +19,14 @@ using Telerik.Web.UI;
  
 public partial class Default : System.Web.UI.Page 
 {
+    protected void Page_Init(object sender, EventArgs e)
+    {
+        if (Request["lid"] != null)
+            Session["lid"] = Request["lid"];
+        else
+            Session["lid"] = null;
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         SqlDataSource_SelectedStore.SelectParameters.Clear();
