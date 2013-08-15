@@ -4,8 +4,41 @@ using System.IO;
 using System.Linq;
 using System.Web;
 
+/// <summary>
+/// A class that assists with various aspects of website creation.
+/// </summary>
 public class WebHelper
 {
+    private static HttpContext web = HttpContext.Current;
+
+    /// <summary>
+    /// Adds a reference to a file (JavaScript, CSS, etc.), automatically detecting the file type.
+    /// </summary>
+    /// <param name="file">Path to file to which to add.</param>
+    /// <param name="inScriptDir">In main script directory? Defaults to true.</param>
+    /// <param name="parentDir">The parent directory of the resource.</param>
+    public static string AddResource(string file, bool inScriptDir = true, string parentDir = "")
+    {
+        string sExt = Path.GetExtension(file).Replace(".", "").ToLower(),
+               sFormat = "";
+
+        if (!parentDir.Equals("") && !parentDir.EndsWith("/"))
+            parentDir += "/";
+
+        switch (sExt)
+        {
+            case "css":
+                sFormat = "<link href=\"{0}\" rel=\"stylesheet\" type=\"text/css\" />";
+                break;
+            case "js":
+                sFormat = "<script src=\"{0}\" type=\"text/javascript\"></script>";
+                break;
+        }
+
+        return String.Format(sFormat, ((inScriptDir) ? Globals.Dirs.JS + "/" : "") + parentDir + file);
+    }
+
+    /*
     public static string[] ProcessRequest(HttpContext context)
     {
         List<string> aResult = new List<string>();
@@ -32,5 +65,5 @@ public class WebHelper
         }
 
         return aResult.ToArray();
-    }
+    }*/
 }
