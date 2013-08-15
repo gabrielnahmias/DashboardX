@@ -4,15 +4,13 @@
     ConnectionString="<%$ ConnectionStrings:LocalConnectionString %>">
 </asp:SqlDataSource>
 
-<%--select CAST(REPLACE(STR(SUM(TransAmount), max(LEN(convert(varchar, TransAmount)))+1, 2), SPACE(1), '0') AS varchar) as TotalSales, SubmitDate from RCDASH.dbo.SampleTable group by SubmitDate--%>
-
 <script type="text/javascript">
     var DBX = DBX || {};
 
     // TODO: Save every position and run that as query.
     //       Maybe use master site file for this so charts can be sorted server-side.
     DBX.events.dockPositionChanged = function (sender, e) {
-        DBX.console.debug(sender, e);
+        Console.debug(sender, e);
         var /*$dock = $(sender._element),
             $chart = $dock.find(".chart"),
             sChart = $chart.attr("id"),
@@ -36,7 +34,7 @@
                 $.post("UpdateChartPositions.aspx", {
                     positions: JSON.stringify(oPositions)//"{Position:" + iPlace + ", Type:'" + sChart + "}'"
                 }, function (data) {
-                    DBX.console.debug(data);
+                    Console.debug(data);
                 });
             }
         });
@@ -45,7 +43,7 @@
         // This needs to be wrapped inside a $(document).ready() for $find() to work.. why?
         DBX.utils.getSvgContent = function (sender, chart) {
             // Obtain an SVG version of the chart regardless of the browser.
-            DBX.console.debug($find("RadHtmlChart1"));
+            Console.debug($find("RadHtmlChart1"));
             var chartRendering = $find(chart).getSVGString();
             $("#overlay").find("#message").html("Generating chart...").end().fadeIn();
 
@@ -82,7 +80,7 @@
             }).mouseleave(function () {
                 $(this).find(".download-image").hide();
             }).find(".download-image").mouseenter(function (e) {
-                //DBX.console.debug(e);
+                //Console.debug(e);
                 //alert($(this).data("timeoutID"))
                 clearTimeout($(this).data("timeoutID"));
             }).mouseleave(function () {
@@ -99,7 +97,7 @@
             $.ajax("LoadChartPositions.aspx", {
                 dataType: "json",
                 success: function (data) {
-                    //DBX.console.debug("Data:",data);
+                    //Console.debug("Data:",data);
                     $("#overlay").fadeOut(400, function () {
                         $(this).find("#message").html("");
                     });
@@ -113,9 +111,9 @@
                             oDock = $find(sDockID),
                             oDockZone = oDock.get_parent();
 
-                        DBX.console.debug("Undocking " + chartType + " chart.");
+                        Console.debug("Undocking " + chartType + " chart.");
                         oDock.undock();
-                        DBX.console.debug("Docking " + chartType + " chart at position " + iPlace + ".");
+                        Console.debug("Docking " + chartType + " chart at position " + iPlace + ".");
                         oDockZone.dock(oDock, iPlace - 1);
                     }
 
@@ -144,6 +142,7 @@
                             </asp:DropDownList>
                             <asp:Button ID="Button1" runat="server" CssClass="strong caps button" Text="Download" OnClick="DownloadColumnChart" OnClientClick="DBX.utils.getSvgContent(this, 'RadHtmlChart1'); return false;" />
                         </div>
+                        <%--  ChartTitle-Text="Total Sales" ChartTitle-Appearance-TextStyle-Bold="true" --%>
                         <telerik:RadHtmlChart ClientIDMode="Static" ID="RadHtmlChart1" runat="server" DataSourceID="SqlDataSource_TotalSales">
                             <PlotArea>
                                 <Series>
@@ -232,7 +231,7 @@
                                     </LabelsAppearance>
                                 </XAxis>
                                 <YAxis>
-                                    <LabelsAppearance DataFormatString="${0}">
+                                    <LabelsAppearance RotationAngle="-70" DataFormatString="${0}">
                                     </LabelsAppearance>
                                 </YAxis>
                             </PlotArea>
