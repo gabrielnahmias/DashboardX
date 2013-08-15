@@ -15,20 +15,15 @@ namespace DashboardX.pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string sql = "";
-
             HttpContext c = HttpContext.Current;
+            string sql = "",
+                   sLID = null;
 
-            if (c.Request["store"] != null)
-            {
-                // Store specified so use that in query (DBAName).
-                sql = String.Format("select [LocationID], [ExternalMerchantNumber], [DBAName], [CurrencyCode], [Description], [SubmitDate], [TransCount], [TransAmount], [InterchangeExpense], [Rate] from [dbx].[dbo].[SampleData] where DBAName='{0}'", c.Request["store"]);
-            }
-            else
-            {
-                // No store specified so use default query.
-                sql = "select [LocationID], [ExternalMerchantNumber], [DBAName], [CurrencyCode], [Description], [SubmitDate], [TransCount], [TransAmount], [InterchangeExpense], [Rate] from [dbx].[dbo].[SampleData]";
-            }
+            if (c.Request["lid"] != null)
+                sLID = c.Request["lid"].ToString();
+
+            // If a store is specified, use it in the query (LocationID), otherwise use default query.
+            sql = String.Format("select [LocationID], [ExternalMerchantNumber], [DBAName], [CurrencyCode], [Description], [SubmitDate], [TransCount], [TransAmount], [InterchangeExpense], [Rate] from [dbx].[dbo].[SampleData]{0}", ((sLID != null) ? String.Format(" where LocationID={0}", sLID) : ""));
 
             // Assign to proper SelectCommand.
             SqlDataSource_Grid.SelectCommand = sql;
