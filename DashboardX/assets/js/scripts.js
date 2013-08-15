@@ -4,6 +4,7 @@ var DBX = {
     utils: {}
 };
 
+//Console.settings.debug.enabled = false;
 Console.settings.stackTrace.enabled = false;
 
 DBX.utils.getParameterByName = function(name) {
