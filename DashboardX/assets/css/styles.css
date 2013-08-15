@@ -72,8 +72,8 @@ body {
     overflow-y: scroll;
 }
 
-body, html, #main, #wrapper {
-    height: 96%;
+body, html, body > form, #wrapper {
+    height: /*96*/100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -460,6 +460,10 @@ select {
 .RadDockZone {
     border: none;
 }
+
+/*.RadWindow td.rwStatusbar input {
+    display: none;
+}*/
 
 .rdPlaceHolder {
     background: rgba(0, 0, 0, 0.07);
