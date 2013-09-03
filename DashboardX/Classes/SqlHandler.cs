@@ -6,7 +6,7 @@ using System.Web;
 
 namespace DashboardX
 {
-    public class SqlComm
+    public class SqlHandler
     {
         private static string _conn;
 
@@ -49,13 +49,13 @@ namespace DashboardX
             }
         }
         
-        public SqlComm()
+        public SqlHandler()
         {
             ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["LocalConnectionString"].ConnectionString;
             conn = new SqlConnection(ConnectionString);
         }
 
-        public SqlComm(string sConnectionString)
+        public SqlHandler(string sConnectionString)
         {
             ConnectionString = sConnectionString;
             conn = new SqlConnection(ConnectionString);
@@ -76,7 +76,7 @@ namespace DashboardX
         /// Executes a query and stores the result in the Result field.
         /// </summary>
         /// <param name="sql">SQL query to execute.</param>
-        public void getResult(string sql)
+        public void GetResult(string sql)
         {
             int i = 0;
             DataTable ds = new DataTable();
@@ -125,6 +125,78 @@ namespace DashboardX
             object obj = new object();
             obj = cmd.ExecuteScalar();
             //_result = obj;
+        }
+
+        // Static functions (helper methods).
+
+        public static Type GetClrType(SqlDbType sqlType)
+        {
+            switch (sqlType)
+            {
+                case SqlDbType.BigInt:
+                    return typeof(long?);
+
+                case SqlDbType.Binary:
+                case SqlDbType.Image:
+                case SqlDbType.Timestamp:
+                case SqlDbType.VarBinary:
+                    return typeof(byte[]);
+
+                case SqlDbType.Bit:
+                    return typeof(bool?);
+
+                case SqlDbType.Char:
+                case SqlDbType.NChar:
+                case SqlDbType.NText:
+                case SqlDbType.NVarChar:
+                case SqlDbType.Text:
+                case SqlDbType.VarChar:
+                case SqlDbType.Xml:
+                    return typeof(string);
+
+                case SqlDbType.DateTime:
+                case SqlDbType.SmallDateTime:
+                case SqlDbType.Date:
+                case SqlDbType.Time:
+                case SqlDbType.DateTime2:
+                    return typeof(DateTime?);
+
+                case SqlDbType.Decimal:
+                case SqlDbType.Money:
+                case SqlDbType.SmallMoney:
+                    return typeof(decimal?);
+
+                case SqlDbType.Float:
+                    return typeof(double?);
+
+                case SqlDbType.Int:
+                    return typeof(int?);
+
+                case SqlDbType.Real:
+                    return typeof(float?);
+
+                case SqlDbType.UniqueIdentifier:
+                    return typeof(Guid?);
+
+                case SqlDbType.SmallInt:
+                    return typeof(short?);
+
+                case SqlDbType.TinyInt:
+                    return typeof(byte?);
+
+                case SqlDbType.Variant:
+                case SqlDbType.Udt:
+                    return typeof(object);
+
+                case SqlDbType.Structured:
+                    return typeof(DataTable);
+
+                case SqlDbType.DateTimeOffset:
+                    return typeof(DateTimeOffset?);
+                    
+                default:
+                    throw new ArgumentOutOfRangeException("sqlType");
+            }
         }
     }
 }
