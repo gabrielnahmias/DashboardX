@@ -7,8 +7,7 @@
 <script type="text/javascript">
     var DBX = DBX || {};
 
-    // TODO: Save every position and run that as query.
-    //       Maybe use master site file for this so charts can be sorted server-side.
+    // TODO: Maybe use master site file for this so charts can be sorted server-side.
     DBX.events.dockPositionChanged = function (sender, e) {
         Console.debug(sender, e);
         var /*$dock = $(sender._element),
