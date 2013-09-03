@@ -87,7 +87,7 @@
   <ItemGroup>
     <Compile Include="Classes\AppInfo.cs" />
     <Compile Include="Classes\ChartPositions.cs" />
-    <Compile Include="Classes\SqlComm.cs" />
+    <Compile Include="Classes\SqlHandler.cs" />
     <Compile Include="Classes\StaticColors.cs" />
     <Compile Include="Classes\Globals.cs" />
     <Compile Include="Classes\Excel.cs" />
@@ -258,7 +258,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
