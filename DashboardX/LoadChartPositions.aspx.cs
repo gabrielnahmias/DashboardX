@@ -24,14 +24,14 @@ namespace DashboardX
 
             string sql = "select Type, Position from dbx.dbo.ChartPositions group by Position, Type";
 
-            SqlComm conn = new SqlComm();
+            SqlHandler conn = new SqlHandler();
 
             //Response.Write(String.Format("SQL Query: {0}\n", sql));
 
             //Response.Write("Result:\n");
             
             // Load chart positions.
-            conn.getResult(sql);
+            conn.GetResult(sql);
 
             Response.Write("{");
 

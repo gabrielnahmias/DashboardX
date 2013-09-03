@@ -17,7 +17,7 @@ namespace DashboardX
             ChartPositions cp = new ChartPositions();
             HttpContext c = HttpContext.Current;
             JavaScriptSerializer js = new JavaScriptSerializer();
-            SqlComm conn = new SqlComm();
+            SqlHandler conn = new SqlHandler();
 
             if (c.Request["positions"] != null)
             {
