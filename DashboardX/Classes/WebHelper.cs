@@ -17,7 +17,7 @@ public class WebHelper
     /// <param name="file">Path to file to which to add.</param>
     /// <param name="inScriptDir">In main script directory? Defaults to true.</param>
     /// <param name="parentDir">The parent directory of the resource.</param>
-    public static string AddResource(string file, bool inScriptDir = true, string parentDir = "")
+    public static string AddResource(string file, bool inScriptDir = true, string parentDir = "", string id = "")
     {
         string sExt = Path.GetExtension(file).Replace(".", "").ToLower(),
                sFormat = "";
@@ -28,14 +28,14 @@ public class WebHelper
         switch (sExt)
         {
             case "css":
-                sFormat = "<link href=\"{0}\" rel=\"stylesheet\" type=\"text/css\" />";
+                sFormat = "<link{0} href=\"{1}\" rel=\"stylesheet\" type=\"text/css\" />";
                 break;
             case "js":
-                sFormat = "<script src=\"{0}\" type=\"text/javascript\"></script>";
+                sFormat = "<script{0} src=\"{1}\" type=\"text/javascript\"></script>";
                 break;
         }
 
-        return String.Format(sFormat, ((inScriptDir) ? Globals.Dirs.JS + "/" : "") + parentDir + file);
+        return String.Format(sFormat, ((!String.IsNullOrEmpty(id)) ? " id=\"" + id + "\"" : ""), ((inScriptDir) ? Globals.Dirs.JS + "/" : "") + parentDir + file);
     }
 
     /*
