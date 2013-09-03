@@ -28,6 +28,14 @@ TODO:
  - Check if LID specified is valid!
  - Fix messed up DB (used to not group by color for the same DBAName...)
    select LocationID, SUM(TransAmount) as TotalSales, Color, DBAName from dbx.dbo.SampleData group by LocationID, Color, DBAName !!!WORKED ON ITS OWN!!!
+ - Perhaps check if the charts haven't changed positions before executing the SQL to change the values.
+ - Generalize stylesheet with formatting, etc. but NO COLOR so that theme files can be made and not cause the page to jump when changing.
+ - Consolidate *WindowClosed JS functions into one with some detection for which one (get ID, etc.).
+ - 
+ - 
+ - 
+ - 
+ - 
 --%>
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -35,7 +43,7 @@ TODO:
 	<title><%=AppInfo.Title%></title>
     <link href="favicon.ico" rel="shortcut icon" />
     <telerik:RadStyleSheetManager id="RadStyleSheetManager" runat="server" />
-    <%=WebHelper.AddResource("styles.css", false, Globals.Dirs.CSS)%>
+    <%=WebHelper.AddResource("styles.css", false, Globals.Dirs.CSS, "theme")%>
     <!-- Console.js -->
     <%=WebHelper.AddResource("Console.js", true, "Console")%>
     <!-- jQuery -->
@@ -66,6 +74,14 @@ TODO:
 	    </telerik:RadAjaxManager>
         <telerik:RadWindowManager ID="RadWindowManager" runat="server" OnClientPageLoad="DBX.events.windowShown" MinimizeZoneID="tools" KeepInScreenBounds="true">
             <Windows>
+                <telerik:RadWindow ID="RadWindow_Settings" runat="server" Behaviors="Maximize,Move,Close,Resize" Title="Settings" VisibleStatusbar="false" Modal="true" NavigateUrl="InitChart.aspx" OnClientClose="DBX.events.storeWindowClosed" Height="500" Width="300">
+                    <ContentTemplate>
+                        <input type="range" />
+                        <input type="range" />
+                        <input type="range" />
+                        <input type="range" />
+                    </ContentTemplate>
+                </telerik:RadWindow>
                 <telerik:RadWindow ID="RadWindow_StoreSelector" runat="server" Behaviors="Maximize,Move" Title="Select a Store" VisibleStatusbar="false" IconUrl="/assets/img/icons/win/store.png" Modal="true" NavigateUrl="InitChart.aspx" OnClientClose="DBX.events.storeWindowClosed" Height="480" Width="700">
                 </telerik:RadWindow>
             </Windows>
@@ -131,8 +147,11 @@ TODO:
                         title: "Shortcut: Alt(+Shift)+" + $this.attr("accesskey")
                     });
                 });
-
                 $(".rtsLI").disableSelection();
+
+                $("#settings").click(function(i, v) {
+                    DBX.utils.openWindow("RadWindow_Settings");
+                });
             });
 
             $(window).load(function(){
@@ -142,7 +161,7 @@ TODO:
                 // No store selected yet, so show the window.
                 %>
                 $("#wrapper section").fadeOut(400, function() {
-                    radopen("", "RadWindow_StoreSelector");
+                    DBX.utils.openWindow("RadWindow_StoreSelector");
                 });
                 <%
                 }
@@ -163,6 +182,7 @@ TODO:
                     <div class="title"><%=AppInfo.Title%></div>
                 </div>
                 <div id="tools">
+                    <%//SqlHandler.GetClrType(SqlDbType.VarChar)%>
                     <div id="store" title="Select store" data-dropdown="#dd_store"></div>
                     <div id="controls" title="Controls" data-dropdown="#dd_controls"></div>
                     <section id="dd_container">
@@ -197,7 +217,7 @@ TODO:
                             <ul class="dropdown-menu">
                                 <li><a href="#">Theme</a></li>
                                 <li class="dropdown-divider"></li>
-                                <li><a href="#">Settings</a></li>
+                                <li><a id="settings" href="#">Settings</a></li>
                             </ul>
                         </div>
                     </section>
