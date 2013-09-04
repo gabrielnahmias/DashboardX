@@ -461,9 +461,9 @@ select {
     border: none;
 }
 
-/*.RadWindow td.rwStatusbar input {
-    display: none;
-}*/
+.RadWindow td.rwStatusbar input {
+    visibility: hidden;
+}
 
 .rdPlaceHolder {
     background: rgba(0, 0, 0, 0.07);
