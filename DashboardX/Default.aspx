@@ -36,6 +36,7 @@ TODO:
  - 
  - 
  - 
+
 --%>
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -45,7 +46,7 @@ TODO:
     <telerik:RadStyleSheetManager id="RadStyleSheetManager" runat="server" />
     <%=WebHelper.AddResource("styles.css", false, Globals.Dirs.CSS, "theme")%>
     <!-- Console.js -->
-    <%=WebHelper.AddResource("Console.js", true, "Console")%>
+    <%=WebHelper.AddResource("Console.min.js", true, "Console")%>
     <!-- jQuery -->
     <%=WebHelper.AddResource("jquery-1.10.2.min.js")%>
     <!-- jQuery UI -->
@@ -74,13 +75,7 @@ TODO:
 	    </telerik:RadAjaxManager>
         <telerik:RadWindowManager ID="RadWindowManager" runat="server" OnClientPageLoad="DBX.events.windowShown" MinimizeZoneID="tools" KeepInScreenBounds="true">
             <Windows>
-                <telerik:RadWindow ID="RadWindow_Settings" runat="server" Behaviors="Maximize,Move,Close,Resize" Title="Settings" VisibleStatusbar="false" Modal="true" NavigateUrl="InitChart.aspx" OnClientClose="DBX.events.storeWindowClosed" Height="500" Width="300">
-                    <ContentTemplate>
-                        <input type="range" />
-                        <input type="range" />
-                        <input type="range" />
-                        <input type="range" />
-                    </ContentTemplate>
+                <telerik:RadWindow ID="RadWindow_Settings" runat="server" Behaviors="Maximize,Move,Close,Resize" Title="Settings" VisibleStatusbar="true" Modal="true" NavigateUrl="Settings.aspx" OnClientClose="DBX.events.storeWindowClosed" Height="500" Width="300" MinHeight="400" MinWidth="300">
                 </telerik:RadWindow>
                 <telerik:RadWindow ID="RadWindow_StoreSelector" runat="server" Behaviors="Maximize,Move" Title="Select a Store" VisibleStatusbar="false" IconUrl="/assets/img/icons/win/store.png" Modal="true" NavigateUrl="InitChart.aspx" OnClientClose="DBX.events.storeWindowClosed" Height="480" Width="700">
                 </telerik:RadWindow>
@@ -152,6 +147,86 @@ TODO:
                 $("#settings").click(function(i, v) {
                     DBX.utils.openWindow("RadWindow_Settings");
                 });
+
+                // -------------------- Log In --------------------
+    
+                (function () {
+                    var $drop = $(".drop"),
+                        $link = $(".loginlink"),
+                        bError = $("#response").text().trim().length != 0,
+                        iHeight = "auto"; // 135;
+
+                    // If there's an error, make it a little taller.
+                    if (!bError)
+                    //    iHeight = 175;
+                    //else
+                        $("#response").parent().remove();
+
+                    $drop.height(iHeight);
+
+                    // If the form was submitted and there's an error, reopen
+                    // the dropdown as soon as the page loads.
+                    if (DBX.utils.getParameterByName("UserName") != null && bError) {
+                        $link.addClass("clicked");
+                        $drop.show();
+                    }
+
+                    //$link.filter(".clicked").hide();
+
+                    $link.click(function () {
+                        var $this = $(this);
+
+                        if ($drop.is(":hidden")) {
+                            $drop.slideDown().animate({ height: iHeight/* + "px"*/ }, { queue: false, duration: 600, easing: "easeOutBounce" });
+                            $this.addClass("clicked");
+                        }
+                        else {
+                            $drop.slideUp();
+                            $this.removeClass("clicked");
+                        }
+                        return false;
+                    });
+
+                    $drop.click(function (e) {
+                        e.stopPropagation();
+                    });
+
+                    $(document).click(function () {
+                        $drop.fadeOut("fast");
+                        $link.removeClass("clicked");
+                    });
+
+                // -------------------- Fading Header --------------------
+
+                    var $header = $("header"),
+                        fadeSpeed = 200,
+                        fadeTo = 0.1,
+                        topDistance = 30,
+                        showHeader = function () {
+                            $header.fadeTo(fadeSpeed, 1);
+                        }, fadeHeader = function () {
+                            $header.fadeTo(fadeSpeed, fadeTo);
+                        },
+                        inside = false;
+
+                    $(window).scroll(function () {
+                        //Console.debug('scrolling');
+                        position = $(window).scrollTop();
+                        if (position >= topDistance && !inside) {
+                            fadeHeader();
+                            $header.bind('mouseenter', showHeader);
+                            $header.bind('mouseleave', fadeHeader);
+                            inside = true;
+                        }
+                        else if (position < topDistance) {
+                            showHeader();
+                            $header.unbind('mouseenter', showHeader);
+                            $header.unbind('mouseleave', fadeHeader);
+                            inside = false;
+                        }
+                    });
+                })();
+
             });
 
             $(window).load(function(){
@@ -183,12 +258,12 @@ TODO:
                 </div>
                 <div id="tools">
                     <%//SqlHandler.GetClrType(SqlDbType.VarChar)%>
-                    <div id="store" title="Select store" data-dropdown="#dd_store"></div>
+                    <div id="store" title="Select a store" data-dropdown="#dd_store"></div>
                     <div id="controls" title="Controls" data-dropdown="#dd_controls"></div>
                     <section id="dd_container">
                         <div id="dd_store" class="dropdown dropdown-relative dropdown-scroll dropdown-tip">
                             <ul class="dropdown-menu">
-                                <li class="dropdown-menu-title">Select Store</li>
+                                <li class="dropdown-menu-title">Select a Store</li>
                                 <%
                                     DataView dv = (DataView)SqlDataSource_Stores.Select(DataSourceSelectArguments.Empty);
                                     HttpContext c = HttpContext.Current;
