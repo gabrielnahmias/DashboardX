@@ -75,9 +75,9 @@ TODO:
 	    </telerik:RadAjaxManager>
         <telerik:RadWindowManager ID="RadWindowManager" runat="server" OnClientPageLoad="DBX.events.windowShown" MinimizeZoneID="tools" KeepInScreenBounds="true">
             <Windows>
-                <telerik:RadWindow ID="RadWindow_Settings" runat="server" Behaviors="Maximize,Move,Close,Resize" Title="Settings" VisibleStatusbar="true" Modal="true" NavigateUrl="Settings.aspx" OnClientClose="DBX.events.storeWindowClosed" Height="500" Width="300" MinHeight="400" MinWidth="300">
+                <telerik:RadWindow ID="RadWindow_Settings" ClientIDMode="Static" runat="server" Behaviors="Maximize,Move,Close,Resize" Title="Settings" VisibleStatusbar="true" IconUrl="/assets/img/icons/win/settings.png" Modal="true" NavigateUrl="Settings.aspx" OnClientClose="DBX.events.storeWindowClosed" Height="500" Width="300" MinHeight="400" MinWidth="300">
                 </telerik:RadWindow>
-                <telerik:RadWindow ID="RadWindow_StoreSelector" runat="server" Behaviors="Maximize,Move" Title="Select a Store" VisibleStatusbar="false" IconUrl="/assets/img/icons/win/store.png" Modal="true" NavigateUrl="InitChart.aspx" OnClientClose="DBX.events.storeWindowClosed" Height="480" Width="700">
+                <telerik:RadWindow ID="RadWindow_StoreSelector" ClientIDMode="Static" runat="server" Behaviors="Maximize,Move" Title="Select a Store" VisibleStatusbar="false" IconUrl="/assets/img/icons/win/store.png" Modal="true" NavigateUrl="InitChart.aspx" OnClientClose="DBX.events.storeWindowClosed" Height="480" Width="700">
                 </telerik:RadWindow>
             </Windows>
         </telerik:RadWindowManager>
