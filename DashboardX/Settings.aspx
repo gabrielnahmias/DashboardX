@@ -23,9 +23,15 @@
         margin: 5px;
         overflow: hidden;
         text-align: center;
+        width: 100%;
     }
     label {
         margin-right: 10px;
+    }
+    .save {
+        bottom: 0;
+        left: 50%;
+        position: absolute;
     }
     </style>
 </head>
@@ -48,6 +54,7 @@
                 <option>Taco Bell</option>
                 <option>Dodge's</option>
             </select>
+            <input class="strong spaced caps save button" type="submit" value="Save" />
         </div>
     </form>
 </body>
