@@ -73,7 +73,7 @@ TODO:
 	    </telerik:RadScriptManager>
 	    <telerik:RadAjaxManager id="RadAjaxManager" runat="server">
 	    </telerik:RadAjaxManager>
-        <telerik:RadWindowManager ID="RadWindowManager" runat="server" OnClientPageLoad="DBX.events.windowShown" MinimizeZoneID="tools" KeepInScreenBounds="true">
+        <telerik:RadWindowManager ID="RadWindowManager" ClientIDMode="Static" runat="server" OnClientPageLoad="DBX.events.windowShown" MinimizeZoneID="tools" KeepInScreenBounds="true">
             <Windows>
                 <telerik:RadWindow ID="RadWindow_Settings" ClientIDMode="Static" runat="server" Behaviors="Maximize,Move,Close,Resize" Title="Settings" VisibleStatusbar="true" IconUrl="/assets/img/icons/win/settings.png" Modal="true" NavigateUrl="Settings.aspx" OnClientClose="DBX.events.storeWindowClosed" Height="500" Width="300" MinHeight="400" MinWidth="300">
                 </telerik:RadWindow>
@@ -125,8 +125,12 @@ TODO:
             }
             DBX.events.windowShown = function (sender, args) {
                 //Get RadWindow's element
-                var oWin = sender.get_element();
-                Console.debug(oWin);
+                var sWin = sender.get_id().replace("RadWindow_", "").toLowerCase();
+                switch(sWin) {
+                    case "settings":
+                        break;
+                }
+                //alert("The window that just opened is " + oWin.get_id());
                 //Get attribute's value
                 //var atributeValue = oWin.getAttribute("myAttribute");
                 //alert(atributeValue); 
