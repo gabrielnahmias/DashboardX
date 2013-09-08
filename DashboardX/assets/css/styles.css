@@ -346,6 +346,9 @@ select {
         min-width: 80px;
         padding-top: 4px;
     }
+    .button.spaced {
+        letter-spacing: 4px;
+    }
     .button.strong {
         font-weight: bold;
     }
