@@ -94,6 +94,13 @@
     <Compile Include="Classes\HtmlChartExporter.cs" />
     <Compile Include="Classes\HtmlChartExportSettings.cs" />
     <Compile Include="Classes\WebHelper.cs" />
+    <Compile Include="Settings.aspx.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Settings.aspx.designer.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+    </Compile>
     <Compile Include="LoadChartPositions.aspx.cs">
       <DependentUpon>LoadChartPositions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -208,6 +215,7 @@
     <Content Include="assets\js\json3.min.js" />
     <Content Include="assets\js\modernizr.min.js" />
     <Content Include="assets\js\scripts.js" />
+    <Content Include="Settings.aspx" />
     <Content Include="InitChart.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -258,7 +266,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
