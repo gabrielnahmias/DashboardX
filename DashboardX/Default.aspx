@@ -73,11 +73,11 @@ TODO:
 	    </telerik:RadScriptManager>
 	    <telerik:RadAjaxManager id="RadAjaxManager" runat="server">
 	    </telerik:RadAjaxManager>
-        <telerik:RadWindowManager ID="RadWindowManager" ClientIDMode="Static" runat="server" OnClientPageLoad="DBX.events.windowShown" MinimizeZoneID="tools" KeepInScreenBounds="true">
+        <telerik:RadWindowManager ID="RadWindowManager" ClientIDMode="Static" runat="server" OnClientShow="DBX.events.windowShown" OnClientClose="DBX.events.windowClosed" MinimizeZoneID="tools" KeepInScreenBounds="true">
             <Windows>
-                <telerik:RadWindow ID="RadWindow_Settings" ClientIDMode="Static" runat="server" Behaviors="Maximize,Move,Close,Resize" Title="Settings" VisibleStatusbar="true" IconUrl="/assets/img/icons/win/settings.png" Modal="true" NavigateUrl="Settings.aspx" OnClientClose="DBX.events.storeWindowClosed" Height="500" Width="300" MinHeight="400" MinWidth="300">
+                <telerik:RadWindow ID="RadWindow_Settings" ClientIDMode="Static" runat="server" Behaviors="Maximize,Move,Close,Resize" Title="Settings" VisibleStatusbar="true" IconUrl="/assets/img/icons/win/settings.png" Modal="true" NavigateUrl="Settings.aspx" Height="500" Width="300" MinHeight="400" MinWidth="300">
                 </telerik:RadWindow>
-                <telerik:RadWindow ID="RadWindow_StoreSelector" ClientIDMode="Static" runat="server" Behaviors="Maximize,Move" Title="Select a Store" VisibleStatusbar="false" IconUrl="/assets/img/icons/win/store.png" Modal="true" NavigateUrl="InitChart.aspx" OnClientClose="DBX.events.storeWindowClosed" Height="480" Width="700">
+                <telerik:RadWindow ID="RadWindow_StoreSelector" ClientIDMode="Static" runat="server" Behaviors="Maximize,Move" Title="Select a Store" VisibleStatusbar="false" IconUrl="/assets/img/icons/win/store.png" Modal="true" NavigateUrl="InitChart.aspx" Height="480" Width="700">
                 </telerik:RadWindow>
             </Windows>
         </telerik:RadWindowManager>
@@ -88,9 +88,6 @@ TODO:
 
                 //DBX.events.tabSelected();
             }*/
-            DBX.utils.openWindow = function (sWin) {
-                radopen("", sWin);
-            }
             DBX.events.tabSelected = function (sender, e) {
                 var tab = e.get_tab(),
                     iIndex = tab.get_index(),
@@ -115,25 +112,21 @@ TODO:
 
                 Console.debug(sender, e);
             }
-            DBX.events.storeWindowClosed = function (sender, args) {
-                //Get RadWindow's element
-                var oWin = sender.get_element();
-                Console.debug(oWin);
-                //Get attribute's value
-                //var atributeValue = oWin.getAttribute("myAttribute");
-                //alert(atributeValue); 
-            }
-            DBX.events.windowShown = function (sender, args) {
-                //Get RadWindow's element
-                var sWin = sender.get_id().replace("RadWindow_", "").toLowerCase();
+            DBX.events.windowClosed = function (sender, args) {
+                var sWin = DBX.utils.getRadWindowID(sender);
                 switch(sWin) {
                     case "settings":
                         break;
                 }
-                //alert("The window that just opened is " + oWin.get_id());
-                //Get attribute's value
-                //var atributeValue = oWin.getAttribute("myAttribute");
-                //alert(atributeValue); 
+                Console.debug("{0} window has closed.".format(DBX.utils.getRadWindowID(sender, false)));
+            }
+            DBX.events.windowShown = function (sender, args) {
+                var sWin = DBX.utils.getRadWindowID(sender);
+                switch(sWin) {
+                    case "settings":
+                        break;
+                }
+                Console.debug("{0} window has opened.".format(DBX.utils.getRadWindowID(sender, false)));
             }
             $(function () {
                 // Remove the HREF for all tabs (we are handling it with JavaScript)
@@ -239,8 +232,8 @@ TODO:
                 {
                 // No store selected yet, so show the window.
                 %>
-                $("#wrapper section").fadeOut(400, function() {
-                    DBX.utils.openWindow("RadWindow_StoreSelector");
+                $("#wrapper section").hide("clip", {}, 0, function() {
+                    DBX.utils.showRadWindow("StoreSelector");
                 });
                 <%
                 }
