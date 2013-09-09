@@ -36,25 +36,37 @@ DBX.utils.getRadWindow = function (id, jquery = false) {
         oExpression2 = null,
         oExpression3 = null;
     if (jquery) {
-        oExpression1 = $(id);
+        oExpression1 = $("#" + sPrefix2 + id);
         oExpression2 = $("#" + sPrefix1 + id);
-        oExpression3 = $("#" + sPrefix2 + id);
-        if (oExpression1.length > 0)                // If the object exists on the page,
+        oExpression3 = $("#" + id);
+        if (oExpression1.length > 0)                // If an element with the ID in combination with the second prefix exists,
             return oExpression1;                    // return this.
         else if (oExpression2.length > 0)           // Otherwise, if an element with the ID in combination with the first prefix exists,
             return oExpression2;                    // return this.
-        else if (oExpression3.length > 0)           // Otherwise, if an element with the ID in combination with the second prefix exists,
+        else if (oExpression3.length > 0)           // Otherwise,
             return oExpression3;                    // return this.
     } else {
-        oExpression1 = $find(id);
+        oExpression1 = $find(sPrefix2 + id);
         oExpression2 = $find(sPrefix1 + id);
-        oExpression3 = $find(sPrefix2 + id);
-        if (oExpression1 != null)                   // If the object exists on the page,
+        oExpression3 = $find(id);
+        if (oExpression1 != null)                   // If an element with the ID in combination with the second prefix exists,
             return oExpression1;                    // return this.
         else if (oExpression2 != null)              // Otherwise, if an element with the ID in combination with the first prefix exists,
             return oExpression2;                    // return this.
-        else if (oExpression3 != null)              // Otherwise, if an element with the ID in combination with the second prefix exists,
+        else if (oExpression3 != null)              // Otherwise,
             return oExpression3;                    // return this.
     }
     return null;                                    // If none of these cases are true, return null.
+}
+DBX.utils.getRadWindowID = function (win, lower) {
+    if (typeof(lower) === 'undefined') lower = true;
+    var sID = win.get_id().replace("RadWindow_", "");
+    if (lower)
+        sID = sID.toLowerCase();
+    return sID;
+}
+DBX.utils.showRadWindow = function (win) {
+    var oWin = DBX.utils.getRadWindow(win);
+    oWin.show();
+    //radopen("", sWin);
 }
