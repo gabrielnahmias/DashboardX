@@ -28,12 +28,10 @@
     }
     $(window).resize(function () {
         var oGridData;
-
         if (typeof localStorage !== 'undefined')
             oGridData = JSON.parse(localStorage.getItem('e'));
         else
             oGridData = {};
-
         DBX.events.gridResize(oGridData);
     });
     $(function () {
@@ -42,7 +40,6 @@
         var $btn = $("#download_file > .button"),
         $select = $("#download_file > select"),
         sFormat = $select.find(":selected").text();
-
         $btn.attr("title", "Download " + sFormat + " file of the grid");
         $select.change(function () {
             sFormat = $(this).find(":selected").text();

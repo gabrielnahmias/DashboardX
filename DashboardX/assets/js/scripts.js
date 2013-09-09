@@ -7,8 +7,8 @@ var DBX = {
 //Console.settings.debug.enabled = false;
 Console.settings.stackTrace.enabled = false;
 
-DBX.utils.closeRadWindow = function (id) {
-    DBX.utils.getRadWindow(id).close();
+DBX.utils.closeRadWindow = function (id, jquery) {
+    DBX.utils.getRadWindow(id, jquery).close();
 }
 DBX.utils.disableSelection = function (target) {
     Console.debug(target);
@@ -28,15 +28,33 @@ DBX.utils.getParameterByName = function(name) {
         results = regex.exec(location.search);
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
-DBX.utils.getRadWindow = function (id) {
-    var iLen = $(id).length,
-        oWin = null,
-        sPrefix = "#RadWindowWrapper_RadWindow_";
-    if (iLen > 0)                                   // If the object exists on the page,
-        oWin = $(id);                               // return this.
-    else if (iLen == 0) {                           // Otherwise,
-        if ($(sPrefix + id).length > 0)             // If the ID in combination with the typical prefix exists,
-            oWin = $(sPrefix + id);                 // return this.
+DBX.utils.getRadWindow = function (id, jquery = false) {
+    var oWin = null,
+        sPrefix1 = "RadWindow_",
+        sPrefix2 = "RadWindowWrapper_RadWindow_",
+        oExpression1 = null,
+        oExpression2 = null,
+        oExpression3 = null;
+    if (jquery) {
+        oExpression1 = $(id);
+        oExpression2 = $("#" + sPrefix1 + id);
+        oExpression3 = $("#" + sPrefix2 + id);
+        if (oExpression1.length > 0)                // If the object exists on the page,
+            return oExpression1;                    // return this.
+        else if (oExpression2.length > 0)           // Otherwise, if an element with the ID in combination with the first prefix exists,
+            return oExpression2;                    // return this.
+        else if (oExpression3.length > 0)           // Otherwise, if an element with the ID in combination with the second prefix exists,
+            return oExpression3;                    // return this.
+    } else {
+        oExpression1 = $find(id);
+        oExpression2 = $find(sPrefix1 + id);
+        oExpression3 = $find(sPrefix2 + id);
+        if (oExpression1 != null)                   // If the object exists on the page,
+            return oExpression1;                    // return this.
+        else if (oExpression2 != null)              // Otherwise, if an element with the ID in combination with the first prefix exists,
+            return oExpression2;                    // return this.
+        else if (oExpression3 != null)              // Otherwise, if an element with the ID in combination with the second prefix exists,
+            return oExpression3;                    // return this.
     }
-    return oWin;                                    // If none of these cases are true, this returns null.
+    return null;                                    // If none of these cases are true, return null.
 }
