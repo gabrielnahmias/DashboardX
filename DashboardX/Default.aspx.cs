@@ -34,8 +34,6 @@ public partial class Default : System.Web.UI.Page
         if (Request["lid"] != null)
             SqlDataSource_SelectedStore.SelectParameters.Add("lid", Request["lid"]);
 
-        DataBind();
-
         int iTab = 0;
         if (Request.QueryString["tab"] != null)
             iTab = int.Parse(Request.QueryString["tab"]);
@@ -46,11 +44,9 @@ public partial class Default : System.Web.UI.Page
 
         RadTabStrip1.Tabs[iTab].Selected = true;
         RadMultiPage1.SelectedIndex = iTab;
-    }
 
-    protected void Page_LoadComplete(object sender, EventArgs e)
-    {
-        //LabelStartup.Text = "<script type=\"text/javascript\">radopen(\"\", \"RadWindow_StoreSelector\");</script>";
+        DataBind();
+        
     }
 
     public bool IsMobile
